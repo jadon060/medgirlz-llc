@@ -24,6 +24,7 @@
       color:var(--text);
       line-height:1.6;
       scroll-behavior:smooth;
+      position: relative;
     }
 
     /* translate buttons (top right) */
@@ -56,7 +57,6 @@
       padding-bottom:2px;
     }
 
-    /* logo wrapper to make it pop from bg */
     .logo-shell {
       display:inline-block;
       position:relative;
@@ -65,7 +65,6 @@
       background:radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 70%);
     }
 
-    /* dramatic slide-in logo, tighter margins */
     .hero-logo {
       width:min(430px, 75vw);
       display:block;
@@ -84,11 +83,10 @@
 
     .hero-sub {
       max-width:620px;
-      margin:2px auto 6px auto; /* <-- super tight */
+      margin:2px auto 6px auto;
       color:#6f5a5f;
     }
 
-    /* contact us button under slogan */
     .contact-btn {
       display:inline-block;
       margin-top:6px;
@@ -108,7 +106,6 @@
       box-shadow:0 6px 18px rgba(0,0,0,0.22);
     }
 
-    /* sections */
     .section {
       max-width:1200px;
       margin:25px auto;
@@ -126,7 +123,6 @@
       padding-left:10px;
     }
 
-    /* service cards */
     .service-cards {
       display:grid;
       grid-template-columns:repeat(4,minmax(180px,1fr));
@@ -158,7 +154,6 @@
       .service-cards{ grid-template-columns:1fr; }
     }
 
-    /* footer */
     footer {
       background:#f7edef;
       border-top:1px solid rgba(0,0,0,0.02);
@@ -177,8 +172,6 @@
       margin:0 auto 12px auto;
       filter: drop-shadow(0 6px 15px rgba(205,131,148,0.35));
     }
-    footer p { margin:4px 0; }
-
     .auth-btn {
       display:inline-block;
       margin:15px auto 15px auto;
@@ -188,7 +181,6 @@
       border-radius:10px;
       text-decoration:none;
       font-weight:600;
-      transition:background .2s ease;
     }
     .auth-btn:hover{ background:#aa5a72; }
 
@@ -207,38 +199,45 @@
       box-shadow:0 2px 8px rgba(0,0,0,0.07);
       background:white;
     }
-
     .copyright {
       margin-top:14px;
       font-size:0.82rem;
       color:#8a7076;
     }
 
-    /* login button */
+    /* LOGIN BUTTON - now top-left and not fixed */
     .login-btn {
-      position: fixed;
-      right: 16px;
-      bottom: 16px;
+      position:absolute;
+      top:10px;
+      left:12px;
       background: var(--accent-3);
       color: #fff;
       font-weight: 600;
       font-size: 0.9rem;
-      padding: 9px 15px;
+      padding: 7px 14px;
       border-radius: 8px;
       text-decoration: none;
       border: none;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      box-shadow: 0 3px 10px rgba(0,0,0,0.18);
       transition: all 0.25s ease;
-      z-index: 9999;
+      z-index: 7000; /* under translate buttons but above content */
     }
-    .login-btn:hover { background:#9a596d; transform: translateY(-3px); }
+    .login-btn:hover {
+      background:#9a596d;
+      transform: translateY(-2px);
+    }
 
     @media (max-width: 600px) {
-      .login-btn { font-size: 0.8rem; padding: 7px 12px; }
+      .login-btn {
+        top:50px; /* so it doesn't clash with mobile UI */
+      }
     }
   </style>
 </head>
 <body>
+
+  <!-- Login now top-left -->
+  <a href="#" class="login-btn">Login</a>
 
   <!-- Translate -->
   <div class="translate-toggle" aria-label="Site language">
@@ -327,10 +326,7 @@
     <p class="copyright">© 2025 MedGirlz LLC. All rights reserved.</p>
   </footer>
 
-  <a href="#" class="login-btn">Login</a>
-
   <script>
-    // google translate init
     function googleTranslateElementInit(){
       new google.translate.TranslateElement(
         {pageLanguage:'en', includedLanguages:'es', autoDisplay:false},
