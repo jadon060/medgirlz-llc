@@ -44,7 +44,6 @@
       cursor:pointer;
       font-size:13px;
       transition:all 0.2s;
-      box-shadow:0 3px 10px rgba(0,0,0,0.03);
     }
     .translate-toggle button:hover{background:#f9eff1;}
     .translate-toggle button.active{ outline:2px solid var(--accent); background:#fdf2f4; }
@@ -52,19 +51,28 @@
 
     /* HERO */
     .hero-wrap {
-      padding-top:70px;
+      padding-top:65px;
       text-align:center;
       padding-bottom:2px;
     }
 
-    /* dramatic slide-in logo */
+    /* logo wrapper to make it pop from bg */
+    .logo-shell {
+      display:inline-block;
+      position:relative;
+      padding:10px 14px 6px 14px;
+      border-radius:999px;
+      background:radial-gradient(circle, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0) 70%);
+    }
+
+    /* dramatic slide-in logo, tighter margins */
     .hero-logo {
       width:min(430px, 75vw);
       display:block;
-      margin:20px auto 0 auto;
+      margin:0 auto;
       animation: slideInHard 1.1s ease-out;
       transition: transform 0.2s ease-out, opacity 0.2s ease-out;
-      filter: drop-shadow(0 10px 30px rgba(211,135,151,0.35));
+      filter: drop-shadow(0 14px 36px rgba(211,135,151,0.5));
     }
 
     @keyframes slideInHard {
@@ -76,7 +84,7 @@
 
     .hero-sub {
       max-width:620px;
-      margin:4px auto 8px auto;
+      margin:2px auto 6px auto; /* <-- super tight */
       color:#6f5a5f;
     }
 
@@ -241,7 +249,9 @@
 
   <!-- HERO -->
   <div class="hero-wrap">
-    <img src="unnamed-Picsart-BackgroundRemover.jpg" alt="MedGirlz LLC" class="hero-logo" id="heroLogo" loading="eager">
+    <span class="logo-shell">
+      <img src="unnamed-Picsart-BackgroundRemover.jpg" alt="MedGirlz LLC" class="hero-logo" id="heroLogo" loading="eager">
+    </span>
     <p class="hero-sub">
       Professional, women-led medical support &amp; training services. Compassion first, skill always.
     </p>
