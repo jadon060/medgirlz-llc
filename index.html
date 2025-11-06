@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MedGirlz LLC</title>
+  <!-- use your uploaded logo as favicon -->
+  <link rel="icon" href="unnamed-Picsart-BackgroundRemover.jpg" type="image/jpeg" />
+  <style>
+    :root {
+      --bg: linear-gradient(180deg,#fdf8f6 0%, #f8f3f1 100%);
+      --card: #ffffff;
+      --text: #3f2f31;
+      --accent: #d58fa0;      /* main blush */
+      --accent-2: #f0cfd7;    /* light blush */
+      --accent-3: #c57388;    /* darker shade */
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin:0;
+      font-family: "Segoe UI", Arial, Helvetica, sans-serif;
+      background:var(--bg);
+      color:var(--text);
+      line-height:1.6;
+      scroll-behavior:smooth;
+    }
+
+    /* translate buttons (top right) */
+    .translate-toggle{
+      position:fixed;
+      top:10px;
+      right:12px;
+      z-index:9999;
+      display:flex;
+      gap:6px;
+      font:14px/1.2 system-ui, Arial, sans-serif;
+    }
+    .translate-toggle button{
+      border:1px solid rgba(0,0,0,0.08);
+      background:#fff;
+      padding:4px 9px;
+      border-radius:8px;
+      cursor:pointer;
+      font-size:13px;
+      transition:all 0.2s;
+      box-shadow:0 3px 10px rgba(0,0,0,0.03);
+    }
+    .translate-toggle button:hover{background:#f9eff1;}
+    .translate-toggle button.active{ outline:2px solid var(--accent); background:#fdf2f4; }
+    #google_translate_element { display:none; }
+
+    /* hero / top section: no blue bar, just clean */
+    .hero-wrap {
+      padding-top:70px;
+      text-align:center;
+      padding-bottom:10px;
+    }
+
+    /* animated logo in center */
+    .hero-logo {
+      width:min(380px, 70vw);
+      display:block;
+      margin:20px auto 10px auto;
+      animation: popin 0.8s ease-out;
+      transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+      filter: drop-shadow(0 9px 28px rgba(211,135,151,0.35));
+    }
+
+    @keyframes popin {
+      from { opacity:0; transform: translateY(20px) scale(0.96); }
+      to   { opacity:1; transform: translateY(0) scale(1); }
+    }
+
+    .hero-title {
+      font-size:2rem;
+      letter-spacing:.4px;
+      margin-top:10px;
+    }
+
+    .hero-sub {
+      max-width:620px;
+      margin:6px auto 20px auto;
+      color:#6f5a5f;
+    }
+
+    /* sections */
+    .section {
+      max-width:1200px;
+      margin:25px auto;
+      padding:20px;
+      background:rgba(255,255,255,0.82);
+      border-radius:16px;
+      box-shadow:0 6px 20px rgba(213,140,145,0.05);
+    }
+
+    .section h2 {
+      color:var(--accent-3);
+      margin-bottom:12px;
+      font-size:1.8rem;
+      border-left:6px solid var(--accent);
+      padding-left:10px;
+    }
+
+    /* service cards */
+    .service-cards {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(180px,1fr));
+      gap:18px;
+      align-items:stretch;
+    }
+    .card {
+      background:var(--card);
+      border-radius:12px;
+      padding:18px 16px 20px 16px;
+      box-shadow:0 4px 15px rgba(0,0,0,0.03);
+      border-top:4px solid var(--accent);
+      transition:transform .2s ease, box-shadow .2s ease;
+    }
+    .card h3 {
+      margin-top:0;
+      color:var(--text);
+      font-size:1.05rem;
+    }
+    .card:hover {
+      transform:translateY(-4px);
+      box-shadow:0 8px 22px rgba(0,0,0,0.06);
+    }
+
+    @media(max-width:1050px){
+      .service-cards{ grid-template-columns:repeat(2,minmax(240px,1fr)); }
+    }
+    @media(max-width:600px){
+      .service-cards{ grid-template-columns:1fr; }
+    }
+
+    /* footer */
+    footer {
+      background:#f7edef;
+      border-top:1px solid rgba(0,0,0,0.02);
+      text-align:center;
+      padding:40px 20px 50px 20px;
+      margin-top:40px;
+    }
+    footer h2{
+      margin-top:0;
+      font-size:1.4rem;
+      color:#644047;
+    }
+    .footer-logo{
+      width:min(220px, 50vw);
+      display:block;
+      margin:0 auto 12px auto;
+      filter: drop-shadow(0 6px 15px rgba(205,131,148,0.35));
+    }
+    footer p { margin:4px 0; }
+
+    .auth-btn {
+      display:inline-block;
+      margin:15px auto 15px auto;
+      background:var(--accent-3);
+      color:white;
+      padding:10px 18px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:600;
+      transition:background .2s ease;
+    }
+    .auth-btn:hover{ background:#aa5a72; }
+
+    .footer-logos {
+      margin-top:20px;
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      gap:26px;
+      flex-wrap:wrap;
+    }
+    .footer-logos img {
+      height:70px;
+      width:auto;
+      border-radius:10px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.07);
+      background:white;
+    }
+
+    .copyright {
+      margin-top:14px;
+      font-size:0.82rem;
+      color:#8a7076;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Translate -->
+  <div class="translate-toggle" aria-label="Site language">
+    <button id="btn-en" type="button">EN</button>
+    <button id="btn-es" type="button">ES</button>
+  </div>
+  <div id="google_translate_element"></div>
+
+  <!-- HERO -->
+  <div class="hero-wrap">
+    <!-- animated logo -->
+    <img src="unnamed-Picsart-BackgroundRemover.jpg" alt="MedGirlz LLC" class="hero-logo" id="heroLogo" loading="eager">
+    <h1 class="hero-title">MedGirlz LLC</h1>
+    <p class="hero-sub">
+      Professional, women-led medical support & training services. Compassion first, skill always.
+    </p>
+  </div>
+
+  <!-- ABOUT -->
+  <section id="about" class="section">
+    <h2>About Us</h2>
+    <p>
+      At MedGirlz LLC, we believe that every individual deserves the opportunity to thrive in their own unique way.
+      Our work is rooted in person-centered support, which means we put the voice, choice, and goals of the person at the center of everything we do.
+      We listen first, then design supports that reflect what is important to and important for the person.
+    </p>
+    <p>
+      Whether it’s developing daily living skills, connecting with the community, or building independence, we tailor our services to meet the specific needs of each participant.
+      We recognize that every journey is different, and our role is to walk alongside individuals and families to make sure services are not just provided, but are meaningful, respectful, and empowering.
+    </p>
+    <p>
+      MedGirlz LLC is committed to flexibility, reliability, and collaboration. We partner with families, facilitators, and community agencies to ensure services are aligned with the person’s life vision.
+      Our mission is simple: supporting people to live their best lives, their way.
+    </p>
+  </section>
+
+  <!-- SERVICES -->
+  <section id="services" class="section">
+    <h2>Our Services</h2>
+    <div class="service-cards">
+      <div class="card">
+        <h3>CPR</h3>
+        <p>
+          Hands-on, practical CPR instruction to help staff and families respond confidently in emergencies. Training follows current safety standards.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Medication Trainer</h3>
+        <p>
+          Guidance on safe medication administration, documentation, and caregiver education to keep clients supported and compliant.
+        </p>
+      </div>
+      <div class="card">
+        <h3>CPI (Crisis Prevention)</h3>
+        <p>
+          De-escalation methods and person-centered strategies to keep everyone safe while honoring dignity and respect.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Nutritionist</h3>
+        <p>
+          Basic nutrition education tailored to client needs — promoting healthy choices, meal planning, and overall wellness.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer id="contact">
+    <img src="unnamed-Picsart-BackgroundRemover.jpg" alt="MedGirlz LLC" class="footer-logo" loading="lazy">
+    <h2>Contact Us</h2>
+    <p><strong>Phone:</strong> (424) 207-6383</p>
+    <p><strong>Email:</strong> TBD</p>
+    <p>
+      <a href="https://bizfileonline.sos.ca.gov/search/business" target="_blank" class="auth-btn">
+        Verify with CA Secretary of State (Search: MedGirlz LLC)
+      </a>
+    </p>
+
+    <!-- keep these like ESS but renamed for MedGirlz -->
+    <div class="footer-logos">
+      <!-- replace with your actual files once uploaded to this repo -->
+      <img src="DDS_Cover.png" alt="DDS / State Programs">
+      <img src="regional_center.png" alt="Regional Center Partner">
+    </div>
+
+    <p class="copyright">© 2025 MedGirlz LLC. All rights reserved.</p>
+  </footer>
+
+  <!-- translate script + hero fade -->
+  <script>
+    // google translate init
+    function googleTranslateElementInit(){
+      new google.translate.TranslateElement(
+        {pageLanguage:'en', includedLanguages:'es', autoDisplay:false},
+        'google_translate_element'
+      );
+      setActiveFromCookie();
+    }
+
+    function setLang(lang){
+      var val = (lang === 'es') ? '/en/es' : '/es/en';
+      document.cookie = 'googtrans=' + val + ';path=/';
+      // try to set for root domain too (when published)
+      var hostParts = window.location.hostname.split('.');
+      if (hostParts.length > 1) {
+        var rootDomain = hostParts.slice(-2).join('.');
+        document.cookie = 'googtrans=' + val + ';domain=.' + rootDomain + ';path=/';
+      }
+      location.reload();
+    }
+
+    function setActiveFromCookie(){
+      var c = document.cookie;
+      var isES = /googtrans=\/en\/es/.test(c);
+      document.getElementById('btn-en').classList.toggle('active', !isES);
+      document.getElementById('btn-es').classList.toggle('active', isES);
+    }
+
+    document.getElementById('btn-en').addEventListener('click', function(){ setLang('en'); });
+    document.getElementById('btn-es').addEventListener('click', function(){ setLang('es'); });
+
+    (function(){
+      var s = document.createElement('script');
+      s.src = '//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit';
+      document.head.appendChild(s);
+    })();
+
+    // fade / shrink logo on scroll (Apple style lite)
+    const heroLogo = document.getElementById('heroLogo');
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      const max = 220; // how far before it's faint
+      const progress = Math.min(y / max, 1);
+      const scale = 1 - progress * 0.15; // shrink a little
+      const opacity = 1 - progress * 0.7; // fade
+      heroLogo.style.transform = `scale(${scale}) translateY(${progress * -4}px)`;
+      heroLogo.style.opacity = opacity;
+    });
+  </script>
+
+</body>
+</html>
