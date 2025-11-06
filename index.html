@@ -60,16 +60,16 @@
     .logo-shell {
       display:inline-block;
       position:relative;
-      padding:6px 12px 4px 12px;
+      padding:4px 10px 2px 10px;
       border-radius:999px;
       background:radial-gradient(circle, rgba(255,255,255,0.97) 0%, rgba(255,255,255,0) 70%);
     }
 
-    /* ← tighter margins here */
+    /* tighter */
     .hero-logo {
       width:min(430px, 75vw);
       display:block;
-      margin:0 auto 0 auto;  /* no bottom gap */
+      margin:0 auto 0 auto;
       animation: slideInHard 1.1s ease-out;
       transition: transform 0.2s ease-out, opacity 0.2s ease-out;
       filter: drop-shadow(0 14px 36px rgba(211,135,151,0.5));
@@ -82,9 +82,10 @@
       100% { opacity:1; transform: translateX(0) scale(1); }
     }
 
+    /* tuck under logo */
     .hero-sub {
       max-width:620px;
-      margin:0 auto 6px auto;  /* top = 0 so it hugs logo */
+      margin:-4px auto 6px auto; /* negative top to remove the gap */
       color:#6f5a5f;
     }
 
@@ -155,54 +156,84 @@
       .service-cards{ grid-template-columns:1fr; }
     }
 
-    /* footer — lightened to match hero bg */
+    /* FOOTER - new layout */
     footer {
       background:#fdf8f6;
       border-top:1px solid rgba(0,0,0,0.02);
-      text-align:center;
-      padding:40px 20px 50px 20px;
+      padding:40px 20px 40px 20px;
       margin-top:40px;
     }
-    footer h2{
-      margin-top:0;
-      font-size:1.4rem;
-      color:#644047;
+    .footer-inner {
+      max-width:1150px;
+      margin:0 auto;
+      display:flex;
+      gap:40px;
+      align-items:flex-start;
+      justify-content:space-between;
+      flex-wrap:wrap;
+    }
+    .footer-left {
+      flex:1 1 320px;
+      min-width:280px;
+      text-align:left;
     }
     .footer-logo{
-      width:min(220px, 50vw);
+      width:190px;
       display:block;
-      margin:0 auto 12px auto;
+      margin:0 0 10px 0;
       filter: drop-shadow(0 6px 15px rgba(205,131,148,0.35));
     }
+    .footer-left h2{
+      margin:4px 0 10px 0;
+      font-size:1.35rem;
+      color:#644047;
+    }
+    .footer-left p {
+      margin:4px 0;
+    }
+
     .auth-btn {
       display:inline-block;
-      margin:15px auto 15px auto;
+      margin:15px 0 10px 0;
       background:var(--accent-3);
       color:white;
       padding:10px 18px;
       border-radius:10px;
       text-decoration:none;
       font-weight:600;
+      transition:background .2s ease;
     }
     .auth-btn:hover{ background:#aa5a72; }
 
+    /* right column */
+    .footer-right {
+      flex:0 0 300px;
+      min-width:260px;
+      text-align:left;
+    }
+    .footer-right h3 {
+      margin-top:0;
+      margin-bottom:12px;
+      color:#6a4f54;
+      font-size:1rem;
+      letter-spacing:.01em;
+    }
     .footer-logos {
-      margin-top:20px;
       display:flex;
-      justify-content:center;
-      align-items:center;
-      gap:26px;
-      flex-wrap:wrap;
+      flex-direction:column;
+      gap:14px;
     }
     .footer-logos img {
       height:70px;
       width:auto;
-      border-radius:10px;
+      border-radius:12px;
       box-shadow:0 2px 8px rgba(0,0,0,0.07);
       background:white;
     }
+
     .copyright {
-      margin-top:14px;
+      margin-top:25px;
+      text-align:center;
       font-size:0.82rem;
       color:#8a7076;
     }
@@ -227,6 +258,24 @@
     .login-btn:hover {
       background:#9a596d;
       transform: translateY(-2px);
+    }
+
+    /* responsive footer */
+    @media (max-width: 750px) {
+      .footer-inner {
+        flex-direction:column;
+        gap:24px;
+      }
+      .footer-left,
+      .footer-right {
+        text-align:center;
+      }
+      .footer-logo { margin:0 auto 10px auto; }
+      .footer-right .footer-logos {
+        flex-direction:row;
+        justify-content:center;
+        flex-wrap:wrap;
+      }
     }
 
     @media (max-width: 600px) {
@@ -308,25 +357,33 @@
 
   <!-- FOOTER -->
   <footer id="contact">
-    <img src="unnamed-Picsart-BackgroundRemover.jpg" alt="MedGirlz LLC" class="footer-logo" loading="lazy">
-    <h2>Contact Us</h2>
-    <p><strong>Phone:</strong> (424) 207-6383</p>
-    <p><strong>Email:</strong> TBD</p>
-    <p>
-      <a href="https://bizfileonline.sos.ca.gov/search/business" target="_blank" class="auth-btn">
-        Verify with CA Secretary of State (Search: MedGirlz LLC)
-      </a>
-    </p>
+    <div class="footer-inner">
+      <div class="footer-left">
+        <img src="unnamed-Picsart-BackgroundRemover.jpg" alt="MedGirlz LLC" class="footer-logo" loading="lazy">
+        <h2>Contact Us</h2>
+        <p><strong>Phone:</strong> (424) 207-6383</p>
+        <p><strong>Email:</strong> TBD</p>
+        <p>
+          <a href="https://bizfileonline.sos.ca.gov/search/business" target="_blank" class="auth-btn">
+            Verify with CA Secretary of State (Search: MedGirlz LLC)
+          </a>
+        </p>
+      </div>
 
-    <div class="footer-logos">
-      <img src="DDS_Cover.png" alt="California Department of Developmental Services">
-      <img src="images.png" alt="SCLARC - South Central Los Angeles Regional Center">
+      <div class="footer-right">
+        <h3>Affiliations / Partners</h3>
+        <div class="footer-logos">
+          <img src="DDS_Cover.png" alt="California Department of Developmental Services">
+          <img src="images.png" alt="SCLARC - South Central Los Angeles Regional Center">
+        </div>
+      </div>
     </div>
 
     <p class="copyright">© 2025 MedGirlz LLC. All rights reserved.</p>
   </footer>
 
   <script>
+    // google translate init
     function googleTranslateElementInit(){
       new google.translate.TranslateElement(
         {pageLanguage:'en', includedLanguages:'es', autoDisplay:false},
@@ -362,7 +419,7 @@
       document.head.appendChild(s);
     })();
 
-    // fade / shrink on scroll
+    // fade / shrink on scroll (kept)
     const heroLogo = document.getElementById('heroLogo');
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
