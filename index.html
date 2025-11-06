@@ -173,25 +173,25 @@
       text-align:left;
     }
     .footer-logo{
-      width:180px;
+      width:160px;              /* a bit smaller */
       display:block;
-      margin:0 0 14px 0;
+      margin:0 0 6px 0;         /* tighter under logo */
       filter: drop-shadow(0 6px 15px rgba(205,131,148,0.35));
     }
     .footer-left h2{
-      margin:0 0 10px 0;
+      margin:0 0 6px 0;         /* tighter under heading */
       font-size:1.35rem;
       color:#644047;
     }
     .footer-left p {
-      margin:4px 0;
+      margin:3px 0;
     }
 
     .auth-btn {
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      margin:15px 0 10px 0;
+      margin:10px 0 6px 0;
       background:var(--accent-3);
       color:white;
       padding:10px 18px;
@@ -199,7 +199,7 @@
       text-decoration:none;
       font-weight:600;
       transition:background .2s ease;
-      max-width:420px;   /* stops it from being too wide */
+      max-width:340px;          /* smaller so it doesn't look too long */
       width:100%;
     }
     .auth-btn:hover{ background:#aa5a72; }
@@ -209,7 +209,7 @@
     }
     .footer-right h3 {
       margin-top:0;
-      margin-bottom:14px;
+      margin-bottom:12px;
       color:#6a4f54;
       font-size:1rem;
     }
@@ -220,15 +220,15 @@
       align-items:center;
     }
     .footer-logos img {
-      width:210px;       /* fixed width */
-      height:auto;       /* keep aspect ratio */
+      width:210px;
+      height:auto;
       border-radius:12px;
       box-shadow:0 2px 8px rgba(0,0,0,0.07);
       background:white;
     }
 
     .copyright {
-      margin-top:25px;
+      margin-top:20px;
       text-align:center;
       font-size:0.82rem;
       color:#8a7076;
@@ -266,7 +266,11 @@
         text-align:center;
       }
       .footer-logo {
-        margin:0 auto 14px auto;
+        margin:0 auto 6px auto;
+      }
+      .auth-btn {
+        margin-left:auto;
+        margin-right:auto;
       }
     }
 
