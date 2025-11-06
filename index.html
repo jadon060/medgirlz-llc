@@ -4,16 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>MedGirlz LLC</title>
-  <!-- use your uploaded logo as favicon -->
   <link rel="icon" href="unnamed-Picsart-BackgroundRemover.jpg" type="image/jpeg" />
   <style>
     :root {
       --bg: linear-gradient(180deg,#fdf8f6 0%, #f8f3f1 100%);
       --card: #ffffff;
       --text: #3f2f31;
-      --accent: #d58fa0;      /* main blush */
-      --accent-2: #f0cfd7;    /* light blush */
-      --accent-3: #c57388;    /* darker shade */
+      --accent: #d58fa0;
+      --accent-2: #f0cfd7;
+      --accent-3: #c57388;
     }
 
     * { box-sizing: border-box; }
@@ -51,32 +50,28 @@
     .translate-toggle button.active{ outline:2px solid var(--accent); background:#fdf2f4; }
     #google_translate_element { display:none; }
 
-    /* hero / top section: no blue bar, just clean */
+    /* HERO */
     .hero-wrap {
       padding-top:70px;
       text-align:center;
       padding-bottom:10px;
     }
 
-    /* animated logo in center */
+    /* bigger, more dramatic logo */
     .hero-logo {
-      width:min(380px, 70vw);
+      width:min(430px, 75vw);
       display:block;
       margin:20px auto 10px auto;
-      animation: popin 0.8s ease-out;
+      animation: popin 1s ease-out;
       transition: transform 0.2s ease-out, opacity 0.2s ease-out;
-      filter: drop-shadow(0 9px 28px rgba(211,135,151,0.35));
+      filter: drop-shadow(0 10px 30px rgba(211,135,151,0.35));
     }
 
+    /* overshoot animation */
     @keyframes popin {
-      from { opacity:0; transform: translateY(20px) scale(0.96); }
-      to   { opacity:1; transform: translateY(0) scale(1); }
-    }
-
-    .hero-title {
-      font-size:2rem;
-      letter-spacing:.4px;
-      margin-top:10px;
+      0%   { opacity:0; transform: translateY(22px) scale(0.9); }
+      55%  { opacity:1; transform: translateY(0) scale(1.03); }
+      100% { opacity:1; transform: translateY(0) scale(1); }
     }
 
     .hero-sub {
@@ -190,6 +185,29 @@
       font-size:0.82rem;
       color:#8a7076;
     }
+
+    /* login button like ESS but pink */
+    .login-btn {
+      position: fixed;
+      right: 16px;
+      bottom: 16px;
+      background: var(--accent-3);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 9px 15px;
+      border-radius: 8px;
+      text-decoration: none;
+      border: none;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.25);
+      transition: all 0.25s ease;
+      z-index: 9999;
+    }
+    .login-btn:hover { background:#9a596d; transform: translateY(-3px); }
+
+    @media (max-width: 600px) {
+      .login-btn { font-size: 0.8rem; padding: 7px 12px; }
+    }
   </style>
 </head>
 <body>
@@ -203,11 +221,10 @@
 
   <!-- HERO -->
   <div class="hero-wrap">
-    <!-- animated logo -->
     <img src="unnamed-Picsart-BackgroundRemover.jpg" alt="MedGirlz LLC" class="hero-logo" id="heroLogo" loading="eager">
-    <h1 class="hero-title">MedGirlz LLC</h1>
+    <!-- removed bold MedGirlz LLC title here -->
     <p class="hero-sub">
-      Professional, women-led medical support & training services. Compassion first, skill always.
+      Professional, women-led medical support &amp; training services. Compassion first, skill always.
     </p>
   </div>
 
@@ -272,9 +289,7 @@
       </a>
     </p>
 
-    <!-- keep these like ESS but renamed for MedGirlz -->
     <div class="footer-logos">
-      <!-- replace with your actual files once uploaded to this repo -->
       <img src="DDS_Cover.png" alt="DDS / State Programs">
       <img src="regional_center.png" alt="Regional Center Partner">
     </div>
@@ -282,7 +297,9 @@
     <p class="copyright">© 2025 MedGirlz LLC. All rights reserved.</p>
   </footer>
 
-  <!-- translate script + hero fade -->
+  <!-- login button (for looks) -->
+  <a href="#" class="login-btn">Login</a>
+
   <script>
     // google translate init
     function googleTranslateElementInit(){
@@ -296,7 +313,6 @@
     function setLang(lang){
       var val = (lang === 'es') ? '/en/es' : '/es/en';
       document.cookie = 'googtrans=' + val + ';path=/';
-      // try to set for root domain too (when published)
       var hostParts = window.location.hostname.split('.');
       if (hostParts.length > 1) {
         var rootDomain = hostParts.slice(-2).join('.');
@@ -321,15 +337,15 @@
       document.head.appendChild(s);
     })();
 
-    // fade / shrink logo on scroll (Apple style lite)
+    // fade / shrink logo on scroll (a bit stronger)
     const heroLogo = document.getElementById('heroLogo');
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
-      const max = 220; // how far before it's faint
+      const max = 240;
       const progress = Math.min(y / max, 1);
-      const scale = 1 - progress * 0.15; // shrink a little
-      const opacity = 1 - progress * 0.7; // fade
-      heroLogo.style.transform = `scale(${scale}) translateY(${progress * -4}px)`;
+      const scale = 1 - progress * 0.18;
+      const opacity = 1 - progress * 0.75;
+      heroLogo.style.transform = `scale(${scale}) translateY(${progress * -6}px)`;
       heroLogo.style.opacity = opacity;
     });
   </script>
