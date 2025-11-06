@@ -54,29 +54,29 @@
     .hero-wrap {
       padding-top:70px;
       text-align:center;
-      padding-bottom:10px;
+      padding-bottom:4px; /* smaller */
     }
 
-    /* bigger, more dramatic logo */
+    /* bigger, slide-in logo */
     .hero-logo {
       width:min(430px, 75vw);
       display:block;
-      margin:20px auto 10px auto;
-      animation: popin 1s ease-out;
+      margin:20px auto 4px auto; /* tighter gap to slogan */
+      animation: slideIn 1s ease-out;
       transition: transform 0.2s ease-out, opacity 0.2s ease-out;
       filter: drop-shadow(0 10px 30px rgba(211,135,151,0.35));
     }
 
-    /* overshoot animation */
-    @keyframes popin {
-      0%   { opacity:0; transform: translateY(22px) scale(0.9); }
-      55%  { opacity:1; transform: translateY(0) scale(1.03); }
-      100% { opacity:1; transform: translateY(0) scale(1); }
+    /* slide from left -> overshoot -> settle */
+    @keyframes slideIn {
+      0%   { opacity:0; transform: translateX(-60px) scale(0.9); }
+      55%  { opacity:1; transform: translateX(6px) scale(1.02); }
+      100% { opacity:1; transform: translateX(0) scale(1); }
     }
 
     .hero-sub {
       max-width:620px;
-      margin:6px auto 20px auto;
+      margin:6px auto 20px auto; /* closer to logo */
       color:#6f5a5f;
     }
 
@@ -222,7 +222,6 @@
   <!-- HERO -->
   <div class="hero-wrap">
     <img src="unnamed-Picsart-BackgroundRemover.jpg" alt="MedGirlz LLC" class="hero-logo" id="heroLogo" loading="eager">
-    <!-- removed bold MedGirlz LLC title here -->
     <p class="hero-sub">
       Professional, women-led medical support &amp; training services. Compassion first, skill always.
     </p>
@@ -289,15 +288,16 @@
       </a>
     </p>
 
+    <!-- your two uploaded images -->
     <div class="footer-logos">
-      <img src="DDS_Cover.png" alt="DDS / State Programs">
-      <img src="regional_center.png" alt="Regional Center Partner">
+      <img src="DDS_Cover.png" alt="California Department of Developmental Services">
+      <img src="images.png" alt="SCLARC - South Central Los Angeles Regional Center">
     </div>
 
     <p class="copyright">© 2025 MedGirlz LLC. All rights reserved.</p>
   </footer>
 
-  <!-- login button (for looks) -->
+  <!-- login button -->
   <a href="#" class="login-btn">Login</a>
 
   <script>
@@ -337,7 +337,7 @@
       document.head.appendChild(s);
     })();
 
-    // fade / shrink logo on scroll (a bit stronger)
+    // stronger fade / shrink on scroll
     const heroLogo = document.getElementById('heroLogo');
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
@@ -345,7 +345,7 @@
       const progress = Math.min(y / max, 1);
       const scale = 1 - progress * 0.18;
       const opacity = 1 - progress * 0.75;
-      heroLogo.style.transform = `scale(${scale}) translateY(${progress * -6}px)`;
+      heroLogo.style.transform = `translateX(0) scale(${scale}) translateY(${progress * -4}px)`;
       heroLogo.style.opacity = opacity;
     });
   </script>
