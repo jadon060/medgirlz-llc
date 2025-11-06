@@ -27,7 +27,6 @@
       position: relative;
     }
 
-    /* translate buttons (top right) */
     .translate-toggle{
       position:fixed;
       top:10px;
@@ -50,7 +49,6 @@
     .translate-toggle button.active{ outline:2px solid var(--accent); background:#fdf2f4; }
     #google_translate_element { display:none; }
 
-    /* HERO */
     .hero-wrap {
       padding-top:65px;
       text-align:center;
@@ -154,7 +152,6 @@
       .service-cards{ grid-template-columns:1fr; }
     }
 
-    /* FOOTER */
     footer {
       background:#fdf8f6;
       border-top:1px solid rgba(0,0,0,0.02);
@@ -187,7 +184,7 @@
       margin:3px 0;
     }
 
-    /* BUTTON we’re fixing */
+    /* shortened verify button */
     .auth-btn {
       display:inline-flex;
       align-items:center;
@@ -195,14 +192,13 @@
       margin:10px 0 6px 0;
       background:var(--accent-3);
       color:white;
-      padding:8px 14px;              /* shorter */
+      padding:7px 12px; 
       border-radius:10px;
       text-decoration:none;
       font-weight:600;
-      font-size:0.9rem;               /* slightly smaller text */
-      white-space:nowrap;             /* keep on one line on desktop */
-      max-width:520px;                /* wide enough for the whole sentence */
-      width:100%;
+      font-size:0.88rem;
+      white-space:nowrap;
+      width:auto;                 /* auto width */
       transition:background .2s ease;
     }
     .auth-btn:hover{ background:#aa5a72; }
@@ -237,7 +233,6 @@
       color:#8a7076;
     }
 
-    /* LOGIN BUTTON - top-left, static */
     .login-btn {
       position:absolute;
       top:10px;
@@ -259,7 +254,6 @@
       transform: translateY(-2px);
     }
 
-    /* responsive footer */
     @media (max-width: 820px) {
       .footer-inner {
         grid-template-columns: 1fr;
@@ -272,8 +266,7 @@
         margin:0 auto 6px auto;
       }
       .auth-btn {
-        white-space:normal;       /* allow wrap on mobile */
-        max-width:100%;
+        white-space:normal;
       }
     }
 
@@ -284,17 +277,14 @@
 </head>
 <body>
 
-  <!-- Login now top-left -->
   <a href="#" class="login-btn">Login</a>
 
-  <!-- Translate -->
   <div class="translate-toggle" aria-label="Site language">
     <button id="btn-en" type="button">EN</button>
     <button id="btn-es" type="button">ES</button>
   </div>
   <div id="google_translate_element"></div>
 
-  <!-- HERO -->
   <div class="hero-wrap">
     <span class="logo-shell">
       <img src="unnamed-Picsart-BackgroundRemover.jpg" alt="MedGirlz LLC" class="hero-logo" id="heroLogo" loading="eager">
@@ -305,56 +295,30 @@
     <a href="#contact" class="contact-btn">Contact Us Today</a>
   </div>
 
-  <!-- ABOUT -->
   <section id="about" class="section">
     <h2>About Us</h2>
     <p>
       At MedGirlz LLC, we believe that every individual deserves the opportunity to thrive in their own unique way.
       Our work is rooted in person-centered support, which means we put the voice, choice, and goals of the person at the center of everything we do.
-      We listen first, then design supports that reflect what is important to and important for the person.
     </p>
     <p>
       Whether it’s developing daily living skills, connecting with the community, or building independence, we tailor our services to meet the specific needs of each participant.
-      We recognize that every journey is different, and our role is to walk alongside individuals and families to make sure services are not just provided, but are meaningful, respectful, and empowering.
     </p>
     <p>
       MedGirlz LLC is committed to flexibility, reliability, and collaboration. We partner with families, facilitators, and community agencies to ensure services are aligned with the person’s life vision.
-      Our mission is simple: supporting people to live their best lives, their way.
     </p>
   </section>
 
-  <!-- SERVICES -->
   <section id="services" class="section">
     <h2>Our Services</h2>
     <div class="service-cards">
-      <div class="card">
-        <h3>CPR</h3>
-        <p>
-          Hands-on, practical CPR instruction to help staff and families respond confidently in emergencies. Training follows current safety standards.
-        </p>
-      </div>
-      <div class="card">
-        <h3>Medication Trainer</h3>
-        <p>
-          Guidance on safe medication administration, documentation, and caregiver education to keep clients supported and compliant.
-        </p>
-      </div>
-      <div class="card">
-        <h3>CPI (Crisis Prevention)</h3>
-        <p>
-          De-escalation methods and person-centered strategies to keep everyone safe while honoring dignity and respect.
-        </p>
-      </div>
-      <div class="card">
-        <h3>Nutritionist</h3>
-        <p>
-          Basic nutrition education tailored to client needs — promoting healthy choices, meal planning, and overall wellness.
-        </p>
-      </div>
+      <div class="card"><h3>CPR</h3><p>Hands-on, practical CPR instruction following safety standards.</p></div>
+      <div class="card"><h3>Medication Trainer</h3><p>Guidance on safe medication administration and caregiver education.</p></div>
+      <div class="card"><h3>CPI (Crisis Prevention)</h3><p>De-escalation and person-centered safety strategies.</p></div>
+      <div class="card"><h3>Nutritionist</h3><p>Basic nutrition education and meal planning support.</p></div>
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer id="contact">
     <div class="footer-inner">
       <div class="footer-left">
@@ -363,7 +327,7 @@
         <p><strong>Phone:</strong> (424) 207-6383</p>
         <p><strong>Email:</strong> TBD</p>
         <a href="https://bizfileonline.sos.ca.gov/search/business" target="_blank" class="auth-btn">
-          Verify with CA Secretary of State (Search: MedGirlz LLC)
+          Verify with CA Secretary of State
         </a>
       </div>
 
@@ -415,7 +379,6 @@
       document.head.appendChild(s);
     })();
 
-    // fade / shrink on scroll
     const heroLogo = document.getElementById('heroLogo');
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
@@ -430,4 +393,3 @@
 
 </body>
 </html>
-
