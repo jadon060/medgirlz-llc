@@ -106,7 +106,7 @@
       box-shadow:0 6px 18px rgba(0,0,0,0.22);
     }
 
-    /* SECTIONS */
+    /* SECTIONS (back to normal) */
     .section {
       max-width:1200px;
       margin:25px auto;
@@ -134,16 +134,9 @@
       box-shadow:0 3px 10px rgba(197,115,136,0.2);
     }
 
-    /* tighten just the services heading */
-    .section-services {
-      padding-top:16px; /* slightly less top padding */
-    }
+    /* ONLY adjust the services heading spacing (so text is higher, more space to line) */
     .section-services h2 {
-      margin-bottom:10px;
-      gap:10px;
-    }
-    .section-services h2::before {
-      margin-top:-4px; /* scoot the pill up a bit */
+      margin-bottom:20px; /* more air between title and line/content */
     }
 
     /* SERVICES grid */
@@ -365,6 +358,7 @@
   <!-- SERVICES -->
   <section id="services" class="section section-services">
     <h2>Our Services</h2>
+    <!-- your little pink line is probably right under here in your file -->
     <div class="service-cards">
       <div class="card">
         <h3>CPR</h3>
