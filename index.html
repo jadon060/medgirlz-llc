@@ -230,7 +230,7 @@
       .service-cards{ grid-template-columns:1fr; }
     }
 
-    /* CERTIFICATIONS */
+    /* Certifications */
     .certs-strip {
       max-width:1100px;
       margin:25px auto 0 auto;
@@ -274,7 +274,7 @@
       max-width:1150px;
       margin:0 auto;
       display:grid;
-      grid-template-columns:minmax(300px,1fr) 280px;
+      grid-template-columns: 1fr 1fr;
       gap:40px;
       align-items:flex-start;
     }
@@ -292,23 +292,7 @@
     }
     .footer-left p { margin:3px 0; }
 
-    .auth-btn {
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      margin:10px 0 14px 0;
-      background:var(--accent-3);
-      color:white;
-      padding:7px 12px;
-      border-radius:10px;
-      text-decoration:none;
-      font-weight:600;
-      font-size:0.88rem;
-      transition:background .2s ease;
-    }
-    .auth-btn:hover{ background:#aa5a72; }
-
-    /* new: key contacts block */
+    /* key contacts block */
     .key-contacts {
       background:rgba(248,243,241,0.7);
       border:1px solid rgba(213,143,160,0.15);
@@ -354,6 +338,22 @@
       background:white;
     }
 
+    .auth-btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      margin:12px auto 0 auto;
+      background:var(--accent-3);
+      color:white;
+      padding:7px 12px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:600;
+      font-size:0.88rem;
+      transition:background .2s ease;
+    }
+    .auth-btn:hover{ background:#aa5a72; }
+
     .copyright {
       margin-top:20px;
       text-align:center;
@@ -389,8 +389,8 @@
       }
       .footer-left { text-align:center; }
       .footer-logo { margin:0 auto 6px auto; }
-      .auth-btn { white-space:normal; max-width:100%; }
       .key-contacts { margin:0 auto; }
+      .footer-right { text-align:center; }
     }
 
     @media (max-width: 600px) {
@@ -400,7 +400,6 @@
 </head>
 <body>
 
-  <!-- changed href HERE -->
   <a href="login.html" class="login-btn">Login</a>
 
   <div class="translate-toggle">
@@ -491,9 +490,6 @@
         <img src="unnamed-Picsart-BackgroundRemover.jpg" alt="MedGirlz LLC" class="footer-logo" loading="lazy">
         <h2>Contact Us</h2>
         <p><strong>Phone:</strong> (424) 207-6383</p>
-        <p><strong>Email:</strong> TBD</p>
-        <a href="https://bizfileonline.sos.ca.gov/search/business" target="_blank" class="auth-btn">Verify with CA Secretary of State</a>
-
         <div class="key-contacts">
           <h4>Key Contacts</h4>
           <p><strong>Ms. Rianne</strong><br><span>RiAnne@medgirlzllc.com</span></p>
@@ -506,6 +502,7 @@
           <img src="DDS_Cover.png" alt="California Department of Developmental Services">
           <img src="Sclarc.png" alt="SCLARC - South Central Los Angeles Regional Center">
         </div>
+        <a href="https://bizfileonline.sos.ca.gov/search/business" target="_blank" class="auth-btn">Verify with CA Secretary of State</a>
       </div>
     </div>
     <p class="copyright">© 2025 MedGirlz LLC. All rights reserved.</p>
