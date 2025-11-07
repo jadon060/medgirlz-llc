@@ -1,1 +1,469 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>MedGirlz LLC • Provider Contract Agreement</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <style>
+    :root{
+      --bg:linear-gradient(180deg,#fdf8f6 0%, #f8f3f1 100%);
+      --card:#ffffff;
+      --ink:#3f2f31;
+      --muted:#856771;
+      --line:#f1dbe1;
+      --accent:#d58fa0;
+      --accent-2:#f0cfd7;
+      --radius:16px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:"Segoe UI",system-ui,-apple-system,Roboto,Helvetica,Arial,sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+    }
+    header{
+      background:#fff;
+      border-bottom:1px solid #f3d7dd;
+      padding:10px 1.4rem;
+      display:flex;
+      gap:14px;
+      align-items:center;
+      justify-content:space-between;
+    }
+    header img{height:54px;object-fit:contain;}
+    .wrap{
+      max-width:980px;
+      margin:1.6rem auto 3rem;
+      padding:0 1.4rem;
+    }
+    .card{
+      background:var(--card);
+      border:1px solid #f3d7dd;
+      border-radius:16px;
+      box-shadow:0 2px 10px rgba(0,0,0,.03);
+      padding:1.4rem 1.4rem 1.1rem;
+      margin-bottom:1.4rem;
+    }
+    h1,h2,h3{margin:0 0 .6rem;}
+    label{display:block;font-size:.7rem;text-transform:uppercase;letter-spacing:.02em;margin-bottom:4px;color:var(--muted);}
+    input,select,textarea{
+      width:100%;
+      padding:8px 10px;
+      border:1px solid #f1dbe1;
+      border-radius:10px;
+      font-size:.85rem;
+      background:#fff;
+      color:var(--ink);
+    }
+    .row{display:flex;gap:12px;flex-wrap:wrap;}
+    .row > div{flex:1 1 210px;}
+    .btn{
+      border:none;
+      background:var(--accent);
+      color:#fff;
+      border-radius:12px;
+      padding:9px 18px;
+      font-weight:600;
+      cursor:pointer;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      font-size:.84rem;
+    }
+    .btn-secondary{
+      background:#fff;
+      color:var(--ink);
+      border:1px solid #f3d7dd;
+    }
+    .sig-wrap{
+      background:#f8f3f1;
+      border:1px solid #f1dbe1;
+      border-radius:14px;
+      padding:14px;
+      margin-top:12px;
+    }
+    .sig-title{font-weight:600;margin-bottom:4px;}
+    .sig-box{
+      background:#fff;
+      border:1px dashed #f1dbe1;
+      border-radius:10px;
+      overflow:hidden;
+    }
+    canvas.sig{
+      width:100%;
+      height:140px;
+      display:block;
+      touch-action:none;
+      cursor:crosshair;
+    }
+    .contract-body{
+      background:#fff;
+      border:1px solid #f5e4e8;
+      border-radius:14px;
+      padding:14px 16px;
+      line-height:1.55;
+      font-size:.83rem;
+      color:#3f2f31;
+      white-space:pre-wrap;
+    }
+    .small{font-size:.72rem;color:#9a7f87;}
+    @media (max-width:580px){
+      header{flex-direction:column;align-items:flex-start;}
+    }
+  </style>
+</head>
+<body>
+<header>
+  <div style="display:flex;gap:14px;align-items:center;">
+    <img src="https://raw.githubusercontent.com/jadon060/medgirlz-llc/main/unnamed-Picsart-BackgroundRemover.jpg" alt="MedGirlz LLC" onerror="this.style.display='none'">
+    <div>
+      <div style="font-weight:700;font-size:1rem;">MedGirlz LLC</div>
+      <div style="font-size:.74rem;color:#856771;">Provider Contract Agreement</div>
+    </div>
+  </div>
+  <button id="printBtn" class="btn btn-secondary" type="button">Print / PDF</button>
+</header>
 
+<div class="wrap">
+  <div class="card">
+    <h2 style="margin-bottom:10px;">Contract Information</h2>
+    <p class="small" style="margin-bottom:14px;">Complete this agreement to formalize services between the Provider (“Contractor”) and MedGirlz LLC (“Company”). Both parties may sign online. Submitted agreements are stored in ESS Supabase along with your other records.</p>
+
+    <div class="row">
+      <div>
+        <label for="provider_name">Provider / Contractor Name</label>
+        <input id="provider_name" placeholder="e.g. Rianne Smith" required />
+      </div>
+      <div>
+        <label for="business_name">Business / Agency Name (optional)</label>
+        <input id="business_name" placeholder="e.g. RS Care & Wellness" />
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:10px;">
+      <div>
+        <label for="provider_email">Email</label>
+        <input id="provider_email" type="email" placeholder="name@email.com" />
+      </div>
+      <div>
+        <label for="provider_phone">Phone</label>
+        <input id="provider_phone" placeholder="(xxx) xxx-xxxx" />
+      </div>
+      <div>
+        <label for="start_date">Start Date</label>
+        <input id="start_date" type="date" />
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:10px;">
+      <div>
+        <label for="client_count">Expected Active Clients</label>
+        <select id="client_count">
+          <option value="under10" selected>Under 10 clients → $3,500 / month</option>
+          <option value="10plus">10 or more clients → $5,000 / month</option>
+        </select>
+      </div>
+      <div>
+        <label for="rate_preview">Contract Rate</label>
+        <input id="rate_preview" readonly value="$3,500.00 (initial 3-month term)" style="background:#f6eef0;">
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h3 style="margin-bottom:10px;">Agreement Terms</h3>
+    <div id="contractText" class="contract-body">
+This Provider Contract Agreement (“Agreement”) is made between:
+
+1. MedGirlz LLC (“Company”), and
+2. The undersigned provider/contractor (“Provider”).
+
+Purpose. MedGirlz LLC supports clinical, wellness, and care-related services under the MedGirlz brand. Provider wishes to deliver services under MedGirlz LLC and receive Company support, access, and branding.
+
+Term. The initial term of this Agreement is THREE (3) MONTHS beginning on the Start Date listed above (“Initial Trial Term”). During this 3-month period, the parties will evaluate workload, number of clients, and time required.
+
+Compensation.
+• If Provider serves fewer than ten (10) active clients under MedGirlz LLC, the compensation to Provider is $3,500.00 per month.
+• If Provider serves ten (10) or more active clients under MedGirlz LLC, the compensation to Provider is $5,000.00 per month.
+• “Active clients” means clients currently being coordinated, staffed, or serviced through MedGirlz LLC under Provider’s caseload.
+
+Review / Renegotiation. At the conclusion of the 3-month Initial Trial Term, the parties will meet to review performance, workload, and program growth. At that time, MedGirlz LLC and Provider may negotiate higher pay, more hours, or expanded duties based on need and availability.
+
+Duties of Provider. Provider agrees to:
+• Represent MedGirlz LLC professionally with families, partners, and clients;
+• Follow all MedGirlz LLC policies, forms, and documentation standards;
+• Communicate promptly and maintain schedule expectations;
+• Protect confidential information and client records.
+
+Duties of Company. MedGirlz LLC agrees to:
+• Provide branding, forms, and administrative guidance similar to the ESS model;
+• Maintain centralized record-keeping in ESS Supabase;
+• Offer reasonable onboarding, communication, and support for Provider.
+
+Independent Contractor. Provider is an independent contractor, not an employee. Provider is responsible for their own taxes, insurance, and compliance.
+
+Termination. Either party may terminate this Agreement with written notice if the other party fails to perform, or at the end of the 3-month trial if either party decides not to continue.
+
+By signing below, both parties agree to the terms of this Agreement.
+    </div>
+
+    <div class="sig-wrap">
+      <div style="display:flex;gap:20px;flex-wrap:wrap;">
+        <div style="flex:1 1 250px;">
+          <div class="sig-title">Provider / Contractor Signature</div>
+          <div class="sig-box">
+            <canvas id="providerSig" class="sig"></canvas>
+          </div>
+          <button type="button" id="clearProviderSig" class="btn btn-secondary" style="margin-top:6px;">Clear Provider Signature</button>
+        </div>
+        <div style="flex:1 1 250px;">
+          <div class="sig-title">MedGirlz LLC Signature</div>
+          <div class="sig-box">
+            <canvas id="mgzSig" class="sig"></canvas>
+          </div>
+          <button type="button" id="clearMgzSig" class="btn btn-secondary" style="margin-top:6px;">Clear MedGirlz Signature</button>
+        </div>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
+      <button id="submitContract" class="btn" type="button">Submit Contract to ESS</button>
+    </div>
+    <p id="status" class="small" style="margin-top:10px;"></p>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const SUPABASE_URL = "https://bqanjupmcgydvmfgvutx.supabase.co";
+  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJxYW5qdXBtY2d5ZHZtZmd2dXR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MTI4NzQsImV4cCI6MjA3NjM4ODg3NH0.J3A12rwUlSqjIsmlnNCcwis6Qt_ryw7ZzFqLftuMKUk";
+  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+  const ess = sb.schema("ess");
+
+  const providerName = document.getElementById("provider_name");
+  const businessName = document.getElementById("business_name");
+  const providerEmail = document.getElementById("provider_email");
+  const providerPhone = document.getElementById("provider_phone");
+  const startDate = document.getElementById("start_date");
+  const clientCount = document.getElementById("client_count");
+  const ratePreview = document.getElementById("rate_preview");
+  const status = document.getElementById("status");
+
+  const providerSigCanvas = document.getElementById("providerSig");
+  const mgzSigCanvas = document.getElementById("mgzSig");
+  let providerSigData = null;
+  let mgzSigData = null;
+
+  // set default date
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth()+1).padStart(2,"0");
+  const dd = String(today.getDate()).padStart(2,"0");
+  startDate.value = `${yyyy}-${mm}-${dd}`;
+
+  clientCount.addEventListener("change", () => {
+    if (clientCount.value === "under10") {
+      ratePreview.value = "$3,500.00 (initial 3-month term)";
+    } else {
+      ratePreview.value = "$5,000.00 (initial 3-month term)";
+    }
+  });
+
+  function initSig(canvas, existing){
+    const rect = canvas.getBoundingClientRect();
+    const ratio = window.devicePixelRatio || 1;
+    canvas.width = rect.width * ratio;
+    canvas.height = 140 * ratio;
+    const ctx = canvas.getContext("2d");
+    ctx.setTransform(1,0,0,1,0,0);
+    ctx.scale(ratio, ratio);
+    ctx.lineWidth = 2;
+    ctx.lineCap = "round";
+    ctx.strokeStyle = "#000";
+    if (existing){
+      const img = new Image();
+      img.onload = () => ctx.drawImage(img,0,0,rect.width,140);
+      img.src = existing;
+    }
+    return ctx;
+  }
+
+  let providerCtx = initSig(providerSigCanvas, null);
+  let mgzCtx = initSig(mgzSigCanvas, null);
+
+  function makeDrawable(canvas, ctx, onEnd){
+    let drawing = false;
+    function pos(e){
+      const r = canvas.getBoundingClientRect();
+      const x = (e.touches ? e.touches[0].clientX : e.clientX) - r.left;
+      const y = (e.touches ? e.touches[0].clientY : e.clientY) - r.top;
+      return {x,y};
+    }
+    function down(e){ e.preventDefault(); drawing = true; const p=pos(e); ctx.beginPath(); ctx.moveTo(p.x,p.y); }
+    function move(e){ if(!drawing) return; const p=pos(e); ctx.lineTo(p.x,p.y); ctx.stroke(); }
+    function up(){ if(!drawing) return; drawing=false; onEnd(canvas); }
+    canvas.addEventListener("pointerdown", down);
+    canvas.addEventListener("pointermove", move);
+    window.addEventListener("pointerup", up);
+    canvas.addEventListener("touchstart", down, {passive:false});
+    canvas.addEventListener("touchmove", move, {passive:false});
+    canvas.addEventListener("touchend", up);
+  }
+
+  makeDrawable(providerSigCanvas, providerCtx, (c) => { providerSigData = c.toDataURL("image/png"); });
+  makeDrawable(mgzSigCanvas, mgzCtx, (c) => { mgzSigData = c.toDataURL("image/png"); });
+
+  document.getElementById("clearProviderSig").addEventListener("click", () => {
+    providerCtx.clearRect(0,0,providerSigCanvas.width,providerSigCanvas.height);
+    providerSigData = null;
+  });
+  document.getElementById("clearMgzSig").addEventListener("click", () => {
+    mgzCtx.clearRect(0,0,mgzSigCanvas.width,mgzSigCanvas.height);
+    mgzSigData = null;
+  });
+
+  async function getOrCreateStaff(providerName){
+    const clean = (providerName || "").trim();
+    if (!clean) return null;
+    // try exact
+    let { data } = await ess.from("staff").select("id").eq("full_name", clean).maybeSingle();
+    if (data?.id) return data.id;
+
+    // create
+    const newId = (crypto && crypto.randomUUID) ? crypto.randomUUID() :
+      'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{
+        const r=Math.random()*16|0, v=c==='x'?r:(r&0x3|0x8); return v.toString(16);
+      });
+
+    const insert = await ess.from("staff").insert([{ id: newId, full_name: clean }]).select("id").maybeSingle();
+    if (insert.error){
+      console.warn("staff insert error", insert.error);
+      return newId;
+    }
+    return insert.data?.id || newId;
+  }
+
+  async function submitContract(){
+    status.textContent = "Submitting…";
+
+    const baseName = providerName.value.trim();
+    if (!baseName){
+      status.textContent = "Provider name is required.";
+      return;
+    }
+    const staffId = await getOrCreateStaff(baseName);
+    const clientUuid = (crypto && crypto.randomUUID) ? crypto.randomUUID() :
+      'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{
+        const r=Math.random()*16|0, v=c==='x'?r:(r&0x3|0x8); return v.toString(16);
+      });
+
+    const contractObj = {
+      type: "MEDGIRLZ_PROVIDER_CONTRACT",
+      provider_name: baseName,
+      business_name: businessName.value.trim(),
+      email: providerEmail.value.trim(),
+      phone: providerPhone.value.trim(),
+      start_date: startDate.value,
+      client_tier: clientCount.value,
+      monthly_rate: clientCount.value === "under10" ? 3500 : 5000,
+      trial_months: 3,
+      notes: document.getElementById("contractText").textContent.trim(),
+      submitted_at: new Date().toISOString()
+    };
+
+    const payload = {
+      client_id: clientUuid,
+      staff_id: staffId,
+      service_date: startDate.value || new Date().toISOString().slice(0,10),
+      modality: "MGZ_CONTRACT",
+      service_notes: JSON.stringify(contractObj),
+      activities: ["MedGirlz Provider Contract"],
+      staff_signature: providerSigData,
+      client_signature: mgzSigData,
+      signed_at: new Date().toISOString()
+    };
+
+    const { error } = await ess.from("daily_entries").insert(payload);
+    if (error){
+      status.textContent = "Submit failed: " + error.message;
+      return;
+    }
+    status.textContent = "Contract stored in ESS ✅";
+  }
+
+  document.getElementById("submitContract").addEventListener("click", submitContract);
+
+  // print / pdf window
+  document.getElementById("printBtn").addEventListener("click", () => {
+    const contractData = {
+      provider: providerName.value || "",
+      business: businessName.value || "",
+      email: providerEmail.value || "",
+      phone: providerPhone.value || "",
+      start: startDate.value || "",
+      tier: clientCount.value === "under10" ? "Under 10 clients – $3,500/mo" : "10+ clients – $5,000/mo",
+      body: document.getElementById("contractText").textContent.trim()
+    };
+    const win = window.open("", "_blank", "width=900,height=1100");
+    win.document.write(`
+      <html>
+      <head>
+        <title>MedGirlz_Contract_${(contractData.provider||"").replace(/\\s+/g,"_")}</title>
+        <style>
+          body{font-family:system-ui,-apple-system,"Segoe UI",sans-serif;margin:0;padding:0;}
+          .page{width:8.5in;min-height:11in;margin:0 auto;padding:.6in;box-sizing:border-box;}
+          .head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;}
+          .logo{height:80px;object-fit:contain;}
+          .contract{white-space:pre-wrap;font-size:11px;line-height:1.55;margin-top:12px;}
+          .sig-row{display:flex;gap:24px;margin-top:28px;}
+          .sig-box{width:220px;height:60px;border-bottom:1px solid #000;margin-bottom:6px;}
+          img.sig{width:220px;height:60px;object-fit:contain;border-bottom:1px solid #000;}
+        </style>
+      </head>
+      <body>
+        <div class="page">
+          <div class="head">
+            <div>
+              <h2 style="margin:0;">MedGirlz LLC</h2>
+              <div style="font-size:12px;">Provider Contract Agreement</div>
+              <div style="font-size:12px;margin-top:4px;"><strong>Date:</strong> ${new Date().toLocaleDateString()}</div>
+              <div style="font-size:12px;"><strong>Provider:</strong> ${contractData.provider || "—"}</div>
+              <div style="font-size:12px;"><strong>Business:</strong> ${contractData.business || "—"}</div>
+              <div style="font-size:12px;"><strong>Start Date:</strong> ${contractData.start || "—"}</div>
+              <div style="font-size:12px;"><strong>Plan:</strong> ${contractData.tier}</div>
+            </div>
+            <div>
+              <img src="https://raw.githubusercontent.com/jadon060/medgirlz-llc/main/unnamed-Picsart-BackgroundRemover.jpg" class="logo" onerror="this.style.display='none'">
+            </div>
+          </div>
+          <div class="contract">${contractData.body}</div>
+          <div class="sig-row">
+            <div>
+              <div style="font-size:11px;font-weight:600;margin-bottom:4px;">Provider / Contractor</div>
+              ${providerSigData ? `<img class="sig" src="${providerSigData}">` : `<div class="sig-box"></div>`}
+            </div>
+            <div>
+              <div style="font-size:11px;font-weight:600;margin-bottom:4px;">MedGirlz LLC</div>
+              ${mgzSigData ? `<img class="sig" src="${mgzSigData}">` : `<div class="sig-box"></div>`}
+            </div>
+          </div>
+        </div>
+      </body>
+      </html>
+    `);
+    win.document.close();
+    win.focus();
+    setTimeout(() => win.print(), 350);
+  });
+
+  // resize listener to keep signature crisp
+  window.addEventListener("resize", () => {
+    providerCtx = initSig(providerSigCanvas, providerSigData);
+    mgzCtx = initSig(mgzSigCanvas, mgzSigData);
+  });
+});
+</script>
+</body>
+</html>
