@@ -128,7 +128,10 @@
 <div class="wrap">
   <div class="card">
     <h2 style="margin-bottom:10px;">Contract Information</h2>
-    <p class="small" style="margin-bottom:14px;">Complete this agreement to formalize services between the Provider (“Contractor”) and MedGirlz LLC (“Company”). Both parties may sign online. Submitted agreements are stored in ESS Supabase along with your other records.</p>
+    <p class="small" style="margin-bottom:14px;">
+      Complete this agreement to formalize services between the Provider (“Contractor”) and MedGirlz LLC (“Company”). 
+      This page saves to your browser only — download/print for your own records.
+    </p>
 
     <div class="row">
       <div>
@@ -197,9 +200,10 @@ Duties of Provider. Provider agrees to:
 • Protect confidential information and client records.
 
 Duties of Company. MedGirlz LLC agrees to:
-• Provide branding, forms, and administrative guidance similar to the ESS model;
-• Maintain centralized record-keeping in ESS Supabase;
-• Offer reasonable onboarding, communication, and support for Provider.
+• Provide branding, forms, and administrative guidance for the Program;
+• Maintain communication and reasonable support for Provider.
+
+Intellectual Property / Trainings. All MedGirlz LLC trainings, protocols, care flows, forms, and written or recorded materials are the exclusive property of MedGirlz LLC. No vendor, provider, agency, contractor, or affiliate may copy, download, redistribute, teach from, or use MedGirlz LLC’s trainings or protocols for their own program, agency, or staff without written permission from MedGirlz LLC.
 
 Independent Contractor. Provider is an independent contractor, not an employee. Provider is responsible for their own taxes, insurance, and compliance.
 
@@ -228,19 +232,15 @@ By signing below, both parties agree to the terms of this Agreement.
     </div>
 
     <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
-      <button id="submitContract" class="btn" type="button">Submit Contract to ESS</button>
+      <button id="saveLocal" class="btn" type="button">Save Contract (This Device Only)</button>
     </div>
     <p id="status" class="small" style="margin-top:10px;"></p>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const SUPABASE_URL = "https://bqanjupmcgydvmfgvutx.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJxYW5qdXBtY2d5ZHZtZmd2dXR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MTI4NzQsImV4cCI6MjA3NjM4ODg3NH0.J3A12rwUlSqjIsmlnNCcwis6Qt_ryw7ZzFqLftuMKUk";
-  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  const ess = sb.schema("ess");
+  const STORAGE_KEY = "medgirlz_contract_local_v1";
 
   const providerName = document.getElementById("provider_name");
   const businessName = document.getElementById("business_name");
@@ -250,6 +250,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const clientCount = document.getElementById("client_count");
   const ratePreview = document.getElementById("rate_preview");
   const status = document.getElementById("status");
+  const contractText = document.getElementById("contractText");
 
   const providerSigCanvas = document.getElementById("providerSig");
   const mgzSigCanvas = document.getElementById("mgzSig");
@@ -324,76 +325,51 @@ document.addEventListener("DOMContentLoaded", () => {
     mgzSigData = null;
   });
 
-  async function getOrCreateStaff(providerName){
-    const clean = (providerName || "").trim();
-    if (!clean) return null;
-    // try exact
-    let { data } = await ess.from("staff").select("id").eq("full_name", clean).maybeSingle();
-    if (data?.id) return data.id;
+  // load from localStorage if exists
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (saved){
+    try{
+      const data = JSON.parse(saved);
+      providerName.value = data.providerName || "";
+      businessName.value = data.businessName || "";
+      providerEmail.value = data.providerEmail || "";
+      providerPhone.value = data.providerPhone || "";
+      startDate.value = data.startDate || startDate.value;
+      clientCount.value = data.clientCount || "under10";
+      ratePreview.value = data.clientCount === "10plus"
+        ? "$5,000.00 (initial 3-month term)"
+        : "$3,500.00 (initial 3-month term)";
+      contractText.textContent = data.contractBody || contractText.textContent;
 
-    // create
-    const newId = (crypto && crypto.randomUUID) ? crypto.randomUUID() :
-      'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{
-        const r=Math.random()*16|0, v=c==='x'?r:(r&0x3|0x8); return v.toString(16);
-      });
-
-    const insert = await ess.from("staff").insert([{ id: newId, full_name: clean }]).select("id").maybeSingle();
-    if (insert.error){
-      console.warn("staff insert error", insert.error);
-      return newId;
+      // re-init signatures with stored data
+      providerCtx = initSig(providerSigCanvas, data.providerSigData || null);
+      mgzCtx = initSig(mgzSigCanvas, data.mgzSigData || null);
+      providerSigData = data.providerSigData || null;
+      mgzSigData = data.mgzSigData || null;
+      status.textContent = "Loaded saved contract from this browser.";
+    }catch(e){
+      console.warn("load failed", e);
     }
-    return insert.data?.id || newId;
   }
 
-  async function submitContract(){
-    status.textContent = "Submitting…";
-
-    const baseName = providerName.value.trim();
-    if (!baseName){
-      status.textContent = "Provider name is required.";
-      return;
-    }
-    const staffId = await getOrCreateStaff(baseName);
-    const clientUuid = (crypto && crypto.randomUUID) ? crypto.randomUUID() :
-      'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{
-        const r=Math.random()*16|0, v=c==='x'?r:(r&0x3|0x8); return v.toString(16);
-      });
-
-    const contractObj = {
-      type: "MEDGIRLZ_PROVIDER_CONTRACT",
-      provider_name: baseName,
-      business_name: businessName.value.trim(),
-      email: providerEmail.value.trim(),
-      phone: providerPhone.value.trim(),
-      start_date: startDate.value,
-      client_tier: clientCount.value,
-      monthly_rate: clientCount.value === "under10" ? 3500 : 5000,
-      trial_months: 3,
-      notes: document.getElementById("contractText").textContent.trim(),
-      submitted_at: new Date().toISOString()
+  async function saveLocal(){
+    const data = {
+      providerName: providerName.value.trim(),
+      businessName: businessName.value.trim(),
+      providerEmail: providerEmail.value.trim(),
+      providerPhone: providerPhone.value.trim(),
+      startDate: startDate.value,
+      clientCount: clientCount.value,
+      contractBody: contractText.textContent.trim(),
+      providerSigData,
+      mgzSigData,
+      savedAt: new Date().toISOString()
     };
-
-    const payload = {
-      client_id: clientUuid,
-      staff_id: staffId,
-      service_date: startDate.value || new Date().toISOString().slice(0,10),
-      modality: "MGZ_CONTRACT",
-      service_notes: JSON.stringify(contractObj),
-      activities: ["MedGirlz Provider Contract"],
-      staff_signature: providerSigData,
-      client_signature: mgzSigData,
-      signed_at: new Date().toISOString()
-    };
-
-    const { error } = await ess.from("daily_entries").insert(payload);
-    if (error){
-      status.textContent = "Submit failed: " + error.message;
-      return;
-    }
-    status.textContent = "Contract stored in ESS ✅";
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+    status.textContent = "Saved locally in this browser ✅ (does not upload anywhere)";
   }
 
-  document.getElementById("submitContract").addEventListener("click", submitContract);
+  document.getElementById("saveLocal").addEventListener("click", saveLocal);
 
   // print / pdf window
   document.getElementById("printBtn").addEventListener("click", () => {
@@ -404,7 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
       phone: providerPhone.value || "",
       start: startDate.value || "",
       tier: clientCount.value === "under10" ? "Under 10 clients – $3,500/mo" : "10+ clients – $5,000/mo",
-      body: document.getElementById("contractText").textContent.trim()
+      body: contractText.textContent.trim()
     };
     const win = window.open("", "_blank", "width=900,height=1100");
     win.document.write(`
