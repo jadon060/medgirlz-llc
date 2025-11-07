@@ -1,0 +1,325 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <title>MedGirlz • Providers Portal</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="MedGirlz Providers Portal — internal notes and tools for providers." />
+  <style>
+    :root{
+      --bg:#fdf8f6;
+      --card:#ffffff;
+      --ink:#3f2f31;
+      --muted:#856771;
+      --line:#f1dbe1;
+      --accent:#c57388;
+      --shadow:0 18px 60px rgba(197,115,136,.12), 0 2px 10px rgba(197,115,136,.04);
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+    }
+
+    header{
+      position:sticky;
+      top:0;
+      z-index:10;
+      background:#fff;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+      padding:12px 16px;
+    }
+    .brand{
+      font-weight:800;
+      letter-spacing:.2px;
+      color:#c57388;
+    }
+    .brand small{
+      font-weight:600;
+      color:var(--muted);
+    }
+    .container{max-width:1100px;margin:18px auto;padding:0 16px}
+    .hero{
+      background:linear-gradient(135deg, rgba(197,115,136,.10), rgba(245,213,219,.12));
+      border:1px solid rgba(197,115,136,.25);
+      border-radius:20px;
+      padding:18px;
+      box-shadow:var(--shadow);
+    }
+    .hero h1{margin:0 0 4px;font-size:28px}
+    .hero .tagline{color:var(--muted);margin:0 0 12px}
+
+    .actions-inline{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px;}
+
+    .card{
+      background:#fff;
+      border:1px solid rgba(197,115,136,.12);
+      border-radius:18px;
+      padding:16px;
+      box-shadow:var(--shadow);
+      margin-top:16px;
+    }
+    .card h2{
+      margin:2px 0 12px;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:#c57388;
+    }
+    .notes-controls{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin:8px 0 10px;
+    }
+    .notes-controls input[type="text"]{
+      flex:1 1 260px;
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius:10px;
+    }
+    .btn{
+      appearance:none;
+      border:1px solid rgba(197,115,136,.35);
+      background:#c57388;
+      color:#fff;
+      border-radius:12px;
+      padding:8px 12px;
+      font-weight:700;
+      box-shadow:0 6px 16px rgba(197,115,136,.25);
+      cursor:pointer;
+      text-decoration:none;
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      white-space:nowrap;
+    }
+    .btn.ghost{background:#fff;color:#3f2f31;}
+    .btn.warn{background:#b91c1c;border-color:#7f1d1d;color:#fff;}
+    textarea#noteText{
+      width:100%;
+      min-height:120px;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      resize:vertical;
+    }
+    .note-row{
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      align-items:start;
+      padding:10px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#faf6f7;
+    }
+    .note-meta{font-size:12px;color:var(--muted);margin-bottom:6px}
+    .note-actions{display:flex;gap:6px}
+    .muted{color:var(--muted)}
+    footer{
+      color:var(--muted);
+      font-size:13px;
+      text-align:center;
+      padding:24px 0 36px;
+    }
+
+    @media (max-width:600px){ header{flex-wrap:wrap;} }
+
+    #passwordScreen{
+      position:fixed;
+      inset:0;
+      background:var(--bg);
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      font-family:system-ui;
+    }
+    #passwordScreen input{
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius:8px;
+      margin-top:10px;
+    }
+    #passwordScreen button{
+      margin-top:10px;
+      padding:8px 12px;
+      border:none;
+      border-radius:8px;
+      background:#c57388;
+      color:#fff;
+      font-weight:700;
+      cursor:pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="passwordScreen">
+    <h2>🔒 Enter Provider Access Code</h2>
+    <input id="pw" type="password" placeholder="Access code" />
+    <button onclick="checkPass()">Enter</button>
+    <p id="msg" class="muted"></p>
+  </div>
+
+  <div id="portal" style="display:none">
+    <header class="container">
+      <div class="brand">MedGirlz • <small>Providers Portal</small></div>
+      <a class="btn ghost" href="https://jadon060.github.io/medgirlz-llc/">Return home</a>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h1>Welcome to MedGirlz LLC</h1>
+        <p class="tagline">Here is the admin portal for reference.</p>
+
+        <div class="actions-inline">
+          <a class="btn" href="https://jadon060.github.io/medgirlz-llc/Admin_Portal.html" target="_blank" rel="noopener">🔗 Admin Portal</a>
+        </div>
+
+        <div class="card">
+          <h2>🗒️ Provider Notes</h2>
+          <p class="muted" style="margin-top:-6px">Saved locally in this browser only.</p>
+
+          <div class="notes-controls">
+            <input id="search" type="text" placeholder="Search notes…" />
+            <button class="btn ghost" id="exportJson">Export</button>
+            <label class="btn ghost" for="importFile" style="cursor:pointer">Import</label>
+            <input id="importFile" type="file" accept=".json" style="display:none" />
+            <button class="btn warn" id="clearAll">Clear All</button>
+          </div>
+
+          <textarea id="noteText" placeholder="Example: 11/07 — submitted progress note to coordinator."></textarea>
+          <div style="display:flex;gap:10px;margin-top:10px">
+            <button class="btn" id="saveNote">Save (Ctrl+Enter)</button>
+            <span class="muted" id="saveStatus" aria-live="polite"></span>
+          </div>
+
+          <div style="margin-top:16px" id="notesList"></div>
+        </div>
+      </section>
+
+      <footer>© <span id="y"></span> MedGirlz LLC • Providers Portal</footer>
+    </main>
+  </div>
+
+  <script>
+    document.getElementById('y').textContent = new Date().getFullYear();
+
+    function checkPass(){
+      const val = document.getElementById('pw').value.trim();
+      const msg = document.getElementById('msg');
+      if(val === "2026"){
+        document.getElementById('passwordScreen').style.display = "none";
+        document.getElementById('portal').style.display = "block";
+      }else{
+        msg.textContent = "❌ Incorrect code";
+      }
+    }
+
+    const LS_KEY = "MGZ_Provider_PrivateNotes_v1";
+    const $ = sel => document.querySelector(sel);
+    const notesList = $("#notesList");
+    const searchBox = $("#search");
+    const statusEl = $("#saveStatus");
+
+    function loadNotes(){ try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; } catch { return []; } }
+    function persist(notes){ localStorage.setItem(LS_KEY, JSON.stringify(notes)); }
+    function nowStamp(){
+      const d = new Date();
+      return d.toLocaleString(undefined, {year:'2-digit', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit'});
+    }
+    function saveNote(){
+      const txt = $("#noteText").value.trim();
+      if(!txt) return;
+      const notes = loadNotes();
+      const body = `${nowStamp()} — ${txt}`;
+      notes.unshift({ id: crypto.randomUUID(), ts: new Date().toISOString(), body });
+      persist(notes);
+      $("#noteText").value = "";
+      flash("Saved");
+      render();
+    }
+    function deleteNote(id){
+      const notes = loadNotes().filter(n => n.id !== id);
+      persist(notes);
+      render();
+    }
+    async function copyNote(text){
+      try{ await navigator.clipboard.writeText(text); flash("Copied"); }catch{ flash("Copy failed"); }
+    }
+    function exportJson(){
+      const blob = new Blob([JSON.stringify(loadNotes(), null, 2)], {type:"application/json"});
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = `MGZ_ProviderNotes_${new Date().toISOString().slice(0,10)}.json`;
+      a.click();
+      URL.revokeObjectURL(a.href);
+    }
+    function importJson(file){
+      const reader = new FileReader();
+      reader.onload = () => {
+        try{
+          const imported = JSON.parse(reader.result);
+          if(!Array.isArray(imported)) throw new Error("Invalid file");
+          const map = new Map();
+          [...imported, ...loadNotes()].forEach(n =>
+            map.set(n.id || crypto.randomUUID(), {
+              id:n.id || crypto.randomUUID(),
+              ts:n.ts || new Date().toISOString(),
+              body:String(n.body||"")
+            })
+          );
+          const merged = [...map.values()].sort((a,b)=> (b.ts||"").localeCompare(a.ts||""));
+          persist(merged);
+          render();
+          flash("Imported");
+        }catch(e){ flash("Import failed"); }
+      };
+      reader.readAsText(file);
+    }
+    function clearAll(){
+      if(confirm("Delete ALL notes on this device?")){ persist([]); render(); }
+    }
+    function flash(msg){ statusEl.textContent = msg; setTimeout(()=> statusEl.textContent = "", 1200); }
+    function render(){
+      const q = (searchBox.value || "").toLowerCase();
+      const notes = loadNotes().filter(n => n.body.toLowerCase().includes(q));
+      if(notes.length === 0){ notesList.innerHTML = `<p class="muted">No notes yet.</p>`; return; }
+      notesList.innerHTML = notes.map(n => {
+        const when = new Date(n.ts).toLocaleString();
+        return `
+          <div class="note-row">
+            <div>
+              <div class="note-meta">${when}</div>
+              <div style="white-space:pre-wrap">${escapeHtml(n.body)}</div>
+            </div>
+            <div class="note-actions">
+              <button class="btn ghost" onclick='(${copyNote}).call(null, ${JSON.stringify(n.body)})'>Copy</button>
+              <button class="btn warn" onclick='(${deleteNote}).call(null, "${n.id}")'>Delete</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+    function escapeHtml(s){ return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+
+    $("#saveNote").addEventListener("click", saveNote);
+    $("#noteText").addEventListener("keydown", e=>{ if(e.ctrlKey && e.key==='Enter'){ saveNote(); } });
+    $("#exportJson").addEventListener("click", exportJson);
+    $("#importFile").addEventListener("change", e => e.target.files[0] && importJson(e.target.files[0]));
+    $("#clearAll").addEventListener("click", clearAll);
+    searchBox.addEventListener("input", render);
+
+    render();
+  </script>
+</body>
+</html>
