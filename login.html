@@ -73,7 +73,7 @@
   <script>
     // passwords for each portal
     const ADMIN_RIANNE = "194810";
-    const ADMIN_EDITH  = "10301993";
+    const ADMIN_EDITH  = "10301993"; // will go to Admin2_Portal.html
     const PROVIDER_PW  = "2026";
 
     function route(){
@@ -92,10 +92,10 @@
         return;
       }
 
-      // Admin: Edith
+      // Admin: Edith -> your Admin2 page
       if(val === ADMIN_EDITH){
         localStorage.setItem("MGZ_Admin_Login","true");
-        location.href = "Admin_Portal_Edith.html";
+        location.href = "Admin2_Portal.html";
         return;
       }
 
