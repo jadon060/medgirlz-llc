@@ -230,6 +230,39 @@
       .service-cards{ grid-template-columns:1fr; }
     }
 
+    /* CERTIFICATIONS */
+    .certs-strip {
+      max-width:1100px;
+      margin:25px auto 0 auto;
+      text-align:center;
+      background:rgba(255,255,255,0.7);
+      border-radius:16px;
+      padding:16px 20px 20px 20px;
+      box-shadow:0 4px 16px rgba(0,0,0,0.02);
+    }
+    .certs-row {
+      display:flex;
+      flex-wrap:wrap;
+      justify-content:center;
+      gap:16px;
+      margin-top:10px;
+    }
+    .certs-row img {
+      height:70px;
+      width:auto;
+      object-fit:contain;
+      background:white;
+      border-radius:12px;
+      padding:6px 10px;
+      box-shadow:0 2px 8px rgba(0,0,0,0.04);
+      border:1px solid rgba(213,143,160,0.08);
+    }
+    @media (max-width:600px){
+      .certs-row img {
+        height:64px;
+      }
+    }
+
     /* FOOTER */
     footer {
       background:#fdf8f6;
@@ -363,16 +396,16 @@
     <h2>About Us</h2>
     <p>At MedGirlz LLC, we believe every person receiving services through the Regional Center system deserves care that is safe, compliant and personal. We are a women-led agency that blends direct medical support, training, and coordination with families, service providers and healthcare professionals.</p>
 
-    <p>Our team is familiar with California Regional Center and Department of Developmental Services (DDS) expectations. Because of that, we help programs stay in compliance from medication administration to updated documentation, while still honoring the individual’s preferences and cultural background.</p>
+    <p>Our team is familiar with California Regional Center and Department of Developmental Services (DDS) expectations. Because of that, we help programs stay in compliance — from medication administration to updated documentation — while still honoring the individual’s preferences and cultural background.</p>
 
     <p>We stay connected with families when needed so they know how their loved one is doing, what changes have been made to care and what upcoming appointments or refills are needed. When staff need help coordinating with doctors’ offices, pharmacies, or specialists, MedGirlz steps in to make those calls and organize information so the team can focus on day-to-day supports.</p>
 
-    <p><strong>Why Providers Choose MedGirlz:</strong></p>
-    <ul>
-      <li>Monthly review and updating of medication records to keep documentation accurate.</li>
+    <h3 style="text-align:center; color:#c57388; margin-top:28px;">Why Families and Providers Choose MedGirlz</h3>
+    <ul style="max-width:700px; margin:0 auto; text-align:left; list-style-type:disc; padding-left:22px; line-height:1.7;">
+      <li>Monthly review and updating of medication records to keep documentation accurate and compliant.</li>
       <li>Routine medication checks in the individual’s home to ensure all meds are labeled, stored, and administered correctly.</li>
-      <li>Communication with doctors’ offices and pharmacies to schedule appointments and manage medication refills.</li>
-      <li>Support for staff when a person has special dietary needs including collaboration with a nutritionist.</li>
+      <li>Direct communication with doctors’ offices and pharmacies to schedule appointments and manage medication refills.</li>
+      <li>Support for staff when a person has special dietary needs, including collaboration with a nutritionist.</li>
       <li>Referrals and coordination with specialists when additional services are needed.</li>
     </ul>
   </section>
@@ -409,6 +442,18 @@
         <h3>Nutritionist</h3>
         <p>Support for staff in planning and implementing special diets, working with a nutritionist when needed, and making sure dietary recommendations are actually followed at home or program.</p>
       </div>
+    </div>
+  </section>
+
+  <!-- Certifications & Partnerships -->
+  <section class="certs-strip">
+    <h2 style="font-size:1.35rem; margin-bottom:6px;">Certifications &amp; Partnerships</h2>
+    <p style="margin-top:0; color:#6a4f54; font-size:0.9rem;">Professional training, documentation and privacy standards to support Regional Center services.</p>
+    <div class="certs-row">
+      <img src="american-red-cross-training-PIC.png" alt="American Red Cross Training">
+      <img src="Badge_CDR_RD-RDN_002_.png" alt="Registered Dietitian Badge">
+      <img src="Hippa.jpeg" alt="HIPAA Compliant">
+      <img src="Food.jpg" alt="Food / Nutrition Approval">
     </div>
   </section>
 
