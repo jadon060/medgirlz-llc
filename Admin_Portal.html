@@ -17,41 +17,96 @@
       --shadow:0 18px 60px rgba(197,115,136,.12), 0 2px 10px rgba(197,115,136,.04);
     }
     *{box-sizing:border-box}
-    body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif
+    }
 
     header{
-      position:sticky;top:0;z-index:10;background:#fff;border-bottom:1px solid var(--line);
-      display:flex;align-items:center;gap:12px;padding:12px 16px;
+      position:sticky;
+      top:0;
+      z-index:10;
+      background:#fff;
+      border-bottom:1px solid var(--line);
+      display:flex;
+      align-items:center;
+      gap:12px;
+      padding:12px 16px;
     }
     .brand{font-weight:800;letter-spacing:.2px;color:#c57388}
     .brand small{font-weight:600;color:var(--muted)}
     .container{max-width:1100px;margin:18px auto;padding:0 16px}
     .hero{
       background:linear-gradient(135deg, rgba(197,115,136,.10), rgba(245,213,219,.12));
-      border:1px solid rgba(197,115,136,.25); border-radius:20px; padding:18px; box-shadow:var(--shadow);
+      border:1px solid rgba(197,115,136,.25);
+      border-radius:20px;
+      padding:18px;
+      box-shadow:var(--shadow);
     }
     .hero h1{margin:0 0 4px;font-size:28px}
     .hero .tagline{color:var(--muted);margin:0 0 12px}
 
     .card{
-      background:#fff;border:1px solid rgba(197,115,136,.12);border-radius:18px;
-      padding:16px;box-shadow:var(--shadow);margin-top:16px;
+      background:#fff;
+      border:1px solid rgba(197,115,136,.12);
+      border-radius:18px;
+      padding:16px;
+      box-shadow:var(--shadow);
+      margin-top:16px;
     }
-    .card h2{margin:2px 0 12px;font-size:18px;display:flex;align-items:center;gap:8px;color:#c57388}
-    .notes-controls{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin:8px 0 10px}
-    .notes-controls input[type="text"]{flex:1 1 260px;padding:8px 10px;border:1px solid var(--line);border-radius:10px}
+    .card h2{
+      margin:2px 0 12px;
+      font-size:18px;
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:#c57388
+    }
+    .notes-controls{
+      display:flex;
+      gap:10px;
+      align-items:center;
+      flex-wrap:wrap;
+      margin:8px 0 10px
+    }
+    .notes-controls input[type="text"]{
+      flex:1 1 260px;
+      padding:8px 10px;
+      border:1px solid var(--line);
+      border-radius:10px
+    }
     .btn{
-      appearance:none;border:1px solid rgba(197,115,136,.35);background:#c57388;color:#fff;border-radius:12px;
-      padding:8px 12px;font-weight:700;box-shadow:0 6px 16px rgba(197,115,136,.25);cursor:pointer
+      appearance:none;
+      border:1px solid rgba(197,115,136,.35);
+      background:#c57388;
+      color:#fff;
+      border-radius:12px;
+      padding:8px 12px;
+      font-weight:700;
+      box-shadow:0 6px 16px rgba(197,115,136,.25);
+      cursor:pointer
     }
     .btn.ghost{background:#fff;color:#3f2f31}
     .btn.warn{background:#b91c1c;border-color:#7f1d1d}
     textarea#noteText{
-      width:100%;min-height:120px;padding:12px;border:1px solid var(--line);border-radius:12px;resize:vertical
+      width:100%;
+      min-height:120px;
+      padding:12px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      resize:vertical
     }
     .note-row{
-      display:grid;grid-template-columns:1fr auto;gap:10px;align-items:start;padding:10px;border:1px solid var(--line);
-      border-radius:12px;background:#faf6f7
+      display:grid;
+      grid-template-columns:1fr auto;
+      gap:10px;
+      align-items:start;
+      padding:10px;
+      border:1px solid var(--line);
+      border-radius:12px;
+      background:#faf6f7
     }
     .note-meta{font-size:12px;color:var(--muted);margin-bottom:6px}
     .note-actions{display:flex;gap:6px}
@@ -63,11 +118,11 @@
     // guard: only let people in if they logged in through login.html
     (function(){
       try{
-        if(localStorage.getItem("MGZ_Admin_Login") !== "true"){
+        if (localStorage.getItem("MGZ_Admin_Login") !== "true") {
           const next = encodeURIComponent("Admin_Portal.html");
           location.replace("login.html?next=" + next);
         }
-      }catch(e){
+      } catch (e) {
         location.replace("login.html");
       }
     })();
@@ -117,11 +172,17 @@
     const searchBox = $("#search");
     const statusEl = $("#saveStatus");
 
-    function loadNotes(){ try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; } catch { return []; } }
+    function loadNotes(){
+      try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; }
+      catch { return []; }
+    }
     function persist(notes){ localStorage.setItem(LS_KEY, JSON.stringify(notes)); }
     function nowStamp(){
       const d = new Date();
-      return d.toLocaleString(undefined, { year:'2-digit', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit' });
+      return d.toLocaleString(undefined, {
+        year:'2-digit', month:'2-digit', day:'2-digit',
+        hour:'2-digit', minute:'2-digit'
+      });
     }
     function saveNote(){
       const txt = $("#noteText").value.trim();
@@ -129,16 +190,31 @@
       const notes = loadNotes();
       const body = `${nowStamp()} — ${txt}`;
       notes.unshift({ id: crypto.randomUUID(), ts: new Date().toISOString(), body });
-      persist(notes); $("#noteText").value = ""; flash("Saved"); render();
+      persist(notes);
+      $("#noteText").value = "";
+      flash("Saved");
+      render();
     }
-    function deleteNote(id){ const notes = loadNotes().filter(n => n.id !== id); persist(notes); render(); }
-    async function copyNote(text){ try { await navigator.clipboard.writeText(text); flash("Copied"); } catch { flash("Copy failed"); } }
+    function deleteNote(id){
+      const notes = loadNotes().filter(n => n.id !== id);
+      persist(notes);
+      render();
+    }
+    async function copyNote(text){
+      try {
+        await navigator.clipboard.writeText(text);
+        flash("Copied");
+      } catch {
+        flash("Copy failed");
+      }
+    }
     function exportJson(){
       const blob = new Blob([JSON.stringify(loadNotes(), null, 2)], {type:"application/json"});
       const a = document.createElement("a");
       a.href = URL.createObjectURL(blob);
       a.download = `MGZ_AdminNotes_${new Date().toISOString().slice(0,10)}.json`;
-      a.click(); URL.revokeObjectURL(a.href);
+      a.click();
+      URL.revokeObjectURL(a.href);
     }
     function importJson(file){
       const reader = new FileReader();
@@ -147,24 +223,46 @@
           const imported = JSON.parse(reader.result);
           if(!Array.isArray(imported)) throw new Error("Invalid file");
           const map = new Map();
-          [...imported, ...loadNotes()].forEach(n => map.set(n.id || crypto.randomUUID(), { id:n.id || crypto.randomUUID(), ts:n.ts || new Date().toISOString(), body:String(n.body||"") }));
+          [...imported, ...loadNotes()].forEach(n =>
+            map.set(n.id || crypto.randomUUID(), {
+              id: n.id || crypto.randomUUID(),
+              ts: n.ts || new Date().toISOString(),
+              body: String(n.body || "")
+            })
+          );
           const merged = [...map.values()].sort((a,b)=> (b.ts||"").localeCompare(a.ts||""));
           persist(merged); render(); flash("Imported");
-        }catch(e){ flash("Import failed"); }
+        } catch(e) {
+          flash("Import failed");
+        }
       };
       reader.readAsText(file);
     }
-    function clearAll(){ if(confirm("Delete ALL notes on this device?")){ persist([]); render(); } }
-    function flash(msg){ statusEl.textContent = msg; setTimeout(()=> statusEl.textContent = "", 1200); }
+    function clearAll(){
+      if(confirm("Delete ALL notes on this device?")){
+        persist([]);
+        render();
+      }
+    }
+    function flash(msg){
+      statusEl.textContent = msg;
+      setTimeout(()=> statusEl.textContent = "", 1200);
+    }
     function render(){
       const q = (searchBox.value || "").toLowerCase();
       const notes = loadNotes().filter(n => n.body.toLowerCase().includes(q));
-      if(notes.length === 0){ notesList.innerHTML = `<p class="muted">No notes yet.</p>`; return; }
+      if(notes.length === 0){
+        notesList.innerHTML = `<p class="muted">No notes yet.</p>`;
+        return;
+      }
       notesList.innerHTML = notes.map(n => {
         const when = new Date(n.ts).toLocaleString();
         return `
           <div class="note-row">
-            <div><div class="note-meta">${when}</div><div style="white-space:pre-wrap">${escapeHtml(n.body)}</div></div>
+            <div>
+              <div class="note-meta">${when}</div>
+              <div style="white-space:pre-wrap">${escapeHtml(n.body)}</div>
+            </div>
             <div class="note-actions">
               <button class="btn ghost" onclick='(${copyNote}).call(null, ${JSON.stringify(n.body)})'>Copy</button>
               <button class="btn warn" onclick='(${deleteNote}).call(null, "${n.id}")'>Delete</button>
@@ -173,10 +271,16 @@
         `;
       }).join("");
     }
-    function escapeHtml(s){ return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+    function escapeHtml(s){
+      return s.replace(/[&<>"']/g, m => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+      }[m]));
+    }
 
     $("#saveNote").addEventListener("click", saveNote);
-    $("#noteText").addEventListener("keydown", e=>{ if(e.ctrlKey && e.key==='Enter'){ saveNote(); }});
+    $("#noteText").addEventListener("keydown", e=>{
+      if(e.ctrlKey && e.key==='Enter'){ saveNote(); }
+    });
     $("#exportJson").addEventListener("click", exportJson);
     $("#importFile").addEventListener("change", e => e.target.files[0] && importJson(e.target.files[0]));
     $("#clearAll").addEventListener("click", clearAll);
