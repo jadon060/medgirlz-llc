@@ -71,9 +71,10 @@
   </div>
 
   <script>
-    // admin + providers
-    const ADMIN_PW    = "194810";
-    const PROVIDER_PW = "2026";
+    // passwords for each portal
+    const ADMIN_RIANNE = "194810";
+    const ADMIN_EDITH  = "10301993";
+    const PROVIDER_PW  = "2026";
 
     function route(){
       const val = (document.getElementById("pw").value || "").trim();
@@ -84,14 +85,23 @@
         return;
       }
 
-      if(val === ADMIN_PW){
-        try { localStorage.setItem("MGZ_Admin_Login","true"); } catch(e){}
+      // Admin: RiAnne
+      if(val === ADMIN_RIANNE){
+        localStorage.setItem("MGZ_Admin_Login","true");
         location.href = "Admin_Portal.html";
         return;
       }
 
+      // Admin: Edith
+      if(val === ADMIN_EDITH){
+        localStorage.setItem("MGZ_Admin_Login","true");
+        location.href = "Admin_Portal_Edith.html";
+        return;
+      }
+
+      // Provider
       if(val === PROVIDER_PW){
-        try { localStorage.setItem("MGZ_Provider_Login","true"); } catch(e){}
+        localStorage.setItem("MGZ_Provider_Login","true");
         location.href = "Providers_Portal.html";
         return;
       }
