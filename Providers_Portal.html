@@ -144,10 +144,13 @@
   <main class="container">
     <section class="hero">
       <h1>Welcome to MedGirlz LLC</h1>
-      <p class="tagline">Here is the admin portal for reference.</p>
+      <p class="tagline">Here is the provider contract for reference.</p>
 
+      <!-- THIS is the button you wanted -->
       <div class="actions-inline">
-        <a class="btn" href="https://jadon060.github.io/medgirlz-llc/Admin_Portal.html" target="_blank" rel="noopener">🔗 Admin Portal</a>
+        <a class="btn" href="https://jadon060.github.io/medgirlz-llc/contract_agreement.html" target="_blank" rel="noopener">
+          📄 Provider Contract
+        </a>
       </div>
 
       <div class="card">
@@ -176,8 +179,10 @@
   </main>
 
   <script>
+    // year
     document.getElementById('y').textContent = new Date().getFullYear();
 
+    // notes logic (same as admin page but namespaced)
     const LS_KEY = "MGZ_Provider_PrivateNotes_v1";
     const $ = sel => document.querySelector(sel);
     const notesList = $("#notesList");
@@ -188,7 +193,10 @@
     function persist(notes){ localStorage.setItem(LS_KEY, JSON.stringify(notes)); }
     function nowStamp(){
       const d = new Date();
-      return d.toLocaleString(undefined, {year:'2-digit', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit'});
+      return d.toLocaleString(undefined, {
+        year:'2-digit', month:'2-digit', day:'2-digit',
+        hour:'2-digit', minute:'2-digit'
+      });
     }
     function saveNote(){
       const txt = $("#noteText").value.trim();
@@ -207,7 +215,12 @@
       render();
     }
     async function copyNote(text){
-      try{ await navigator.clipboard.writeText(text); flash("Copied"); }catch{ flash("Copy failed"); }
+      try {
+        await navigator.clipboard.writeText(text);
+        flash("Copied");
+      } catch {
+        flash("Copy failed");
+      }
     }
     function exportJson(){
       const blob = new Blob([JSON.stringify(loadNotes(), null, 2)], {type:"application/json"});
@@ -235,18 +248,29 @@
           persist(merged);
           render();
           flash("Imported");
-        }catch(e){ flash("Import failed"); }
+        }catch(e){
+          flash("Import failed");
+        }
       };
       reader.readAsText(file);
     }
     function clearAll(){
-      if(confirm("Delete ALL notes on this device?")){ persist([]); render(); }
+      if(confirm("Delete ALL notes on this device?")){
+        persist([]);
+        render();
+      }
     }
-    function flash(msg){ statusEl.textContent = msg; setTimeout(()=> statusEl.textContent = "", 1200); }
+    function flash(msg){
+      statusEl.textContent = msg;
+      setTimeout(()=> statusEl.textContent = "", 1200);
+    }
     function render(){
       const q = (searchBox.value || "").toLowerCase();
       const notes = loadNotes().filter(n => n.body.toLowerCase().includes(q));
-      if(notes.length === 0){ notesList.innerHTML = `<p class="muted">No notes yet.</p>`; return; }
+      if(notes.length === 0){
+        notesList.innerHTML = `<p class="muted">No notes yet.</p>`;
+        return;
+      }
       notesList.innerHTML = notes.map(n => {
         const when = new Date(n.ts).toLocaleString();
         return `
@@ -263,10 +287,16 @@
         `;
       }).join("");
     }
-    function escapeHtml(s){ return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+    function escapeHtml(s){
+      return s.replace(/[&<>"']/g, m => ({
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'
+      }[m]));
+    }
 
     $("#saveNote").addEventListener("click", saveNote);
-    $("#noteText").addEventListener("keydown", e=>{ if(e.ctrlKey && e.key==='Enter'){ saveNote(); } });
+    $("#noteText").addEventListener("keydown", e=>{
+      if(e.ctrlKey && e.key==='Enter'){ saveNote(); }
+    });
     $("#exportJson").addEventListener("click", exportJson);
     $("#importFile").addEventListener("change", e => e.target.files[0] && importJson(e.target.files[0]));
     $("#clearAll").addEventListener("click", clearAll);
