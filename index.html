@@ -133,10 +133,55 @@
       box-shadow:0 3px 10px rgba(197,115,136,0.2);
     }
 
+    /* NEW: media row under About Us */
+    .media-strip {
+      max-width:1200px;
+      margin:25px auto;
+      background:transparent;
+      box-shadow:none;
+      padding:0 20px;
+    }
+    .media-row {
+      display:flex;
+      gap:16px;
+      align-items:center;
+      justify-content:center;
+    }
+    .media-row video,
+    .media-row img {
+      background:#fff;
+      border-radius:14px;
+      box-shadow:0 6px 20px rgba(0,0,0,0.04);
+      border:1px solid rgba(213,143,160,0.12);
+    }
+    .media-row video {
+      width:33%;
+      max-height:360px;
+      object-fit:cover;
+    }
+    .media-row img {
+      width:260px;
+      height:auto;
+    }
+    @media (max-width:900px){
+      .media-row {
+        flex-direction:column;
+        align-items:stretch;
+      }
+      .media-row video,
+      .media-row img {
+        width:100%;
+      }
+      .media-row img {
+        max-width:380px;
+        margin:0 auto;
+      }
+    }
+
     /* FIXED Our Services spacing */
     .section-services h2 {
-      margin-bottom:12px; /* create breathing space */
-      transform: translateY(-8px); /* lift text slightly upward */
+      margin-bottom:12px;
+      transform: translateY(-8px);
     }
 
     /* SERVICE CARDS */
@@ -325,6 +370,19 @@
 
     <p>MedGirlz LLC is committed to flexibility, reliability, and collaboration. We partner with families, facilitators, and community agencies to ensure services are aligned with the person’s life vision.
     Our mission is simple: supporting people to live their best lives, their way.</p>
+  </section>
+
+  <!-- NEW media section -->
+  <section class="media-strip">
+    <div class="media-row">
+      <video controls>
+        <source src="https://raw.githubusercontent.com/jadon060/medgirlz-llc/main/F130F09E-9438-4712-A91E-B3F8D92AD937.MOV" type="video/mp4">
+      </video>
+      <img src="unnamed.jpg" alt="MedGirlz LLC">
+      <video controls>
+        <source src="https://raw.githubusercontent.com/jadon060/medgirlz-llc/main/C4BB6F0B-D1AD-40E8-9002-F18F6D2BB271.MOV" type="video/mp4">
+      </video>
+    </div>
   </section>
 
   <section id="services" class="section section-services">
