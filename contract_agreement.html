@@ -128,7 +128,7 @@
 <div class="wrap">
   <div class="card">
     <h2 style="margin-bottom:10px;">Contract Information</h2>
-    <p class="small" style="margin-bottom:14px;">Complete this agreement to formalize services between the Provider (“Contractor”) and MedGirlz LLC (“Company”). Both parties may sign online. Submitted agreements are stored in ESS Supabase along with your other records.</p>
+    <p class="small" style="margin-bottom:14px;">Complete this agreement to formalize services between the Provider (“Contractor”) and MedGirlz LLC (“Company”). Both parties may sign online. You can save this locally on this device and print/PDF.</p>
 
     <div class="row">
       <div>
@@ -198,7 +198,7 @@ Duties of Provider. Provider agrees to:
 
 Duties of Company. MedGirlz LLC agrees to:
 • Provide branding, forms, and administrative guidance similar to the ESS model;
-• Maintain centralized record-keeping in ESS Supabase;
+• Maintain centralized record-keeping;
 • Offer reasonable onboarding, communication, and support for Provider.
 
 Independent Contractor. Provider is an independent contractor, not an employee. Provider is responsible for their own taxes, insurance, and compliance.
@@ -228,20 +228,14 @@ By signing below, both parties agree to the terms of this Agreement.
     </div>
 
     <div style="display:flex;gap:8px;justify-content:flex-end;margin-top:14px;">
-      <button id="submitContract" class="btn" type="button">Submit Contract to ESS</button>
+      <button id="saveLocal" class="btn btn-secondary" type="button">Save draft (this device)</button>
     </div>
     <p id="status" class="small" style="margin-top:10px;"></p>
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 document.addEventListener("DOMContentLoaded", () => {
-  const SUPABASE_URL = "https://bqanjupmcgydvmfgvutx.supabase.co";
-  const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImJxYW5qdXBtY2d5ZHZtZmd2dXR4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NjA4MTI4NzQsImV4cCI6MjA3NjM4ODg3NH0.J3A12rwUlSqjIsmlnNCcwis6Qt_ryw7ZzFqLftuMKUk";
-  const sb = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-  const ess = sb.schema("ess");
-
   const providerName = document.getElementById("provider_name");
   const businessName = document.getElementById("business_name");
   const providerEmail = document.getElementById("provider_email");
@@ -250,13 +244,14 @@ document.addEventListener("DOMContentLoaded", () => {
   const clientCount = document.getElementById("client_count");
   const ratePreview = document.getElementById("rate_preview");
   const status = document.getElementById("status");
+  const contractText = document.getElementById("contractText");
 
   const providerSigCanvas = document.getElementById("providerSig");
   const mgzSigCanvas = document.getElementById("mgzSig");
   let providerSigData = null;
   let mgzSigData = null;
 
-  // set default date
+  // default date today
   const today = new Date();
   const yyyy = today.getFullYear();
   const mm = String(today.getMonth()+1).padStart(2,"0");
@@ -324,78 +319,50 @@ document.addEventListener("DOMContentLoaded", () => {
     mgzSigData = null;
   });
 
-  async function getOrCreateStaff(providerName){
-    const clean = (providerName || "").trim();
-    if (!clean) return null;
-    // try exact
-    let { data } = await ess.from("staff").select("id").eq("full_name", clean).maybeSingle();
-    if (data?.id) return data.id;
-
-    // create
-    const newId = (crypto && crypto.randomUUID) ? crypto.randomUUID() :
-      'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{
-        const r=Math.random()*16|0, v=c==='x'?r:(r&0x3|0x8); return v.toString(16);
-      });
-
-    const insert = await ess.from("staff").insert([{ id: newId, full_name: clean }]).select("id").maybeSingle();
-    if (insert.error){
-      console.warn("staff insert error", insert.error);
-      return newId;
-    }
-    return insert.data?.id || newId;
-  }
-
-  async function submitContract(){
-    status.textContent = "Submitting…";
-
-    const baseName = providerName.value.trim();
-    if (!baseName){
-      status.textContent = "Provider name is required.";
-      return;
-    }
-    const staffId = await getOrCreateStaff(baseName);
-    const clientUuid = (crypto && crypto.randomUUID) ? crypto.randomUUID() :
-      'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g,c=>{
-        const r=Math.random()*16|0, v=c==='x'?r:(r&0x3|0x8); return v.toString(16);
-      });
-
-    const contractObj = {
-      type: "MEDGIRLZ_PROVIDER_CONTRACT",
-      provider_name: baseName,
-      business_name: businessName.value.trim(),
-      email: providerEmail.value.trim(),
-      phone: providerPhone.value.trim(),
-      start_date: startDate.value,
-      client_tier: clientCount.value,
-      monthly_rate: clientCount.value === "under10" ? 3500 : 5000,
-      trial_months: 3,
-      notes: document.getElementById("contractText").textContent.trim(),
-      submitted_at: new Date().toISOString()
-    };
-
+  // local save
+  function saveLocal() {
     const payload = {
-      client_id: clientUuid,
-      staff_id: staffId,
-      service_date: startDate.value || new Date().toISOString().slice(0,10),
-      modality: "MGZ_CONTRACT",
-      service_notes: JSON.stringify(contractObj),
-      activities: ["MedGirlz Provider Contract"],
-      staff_signature: providerSigData,
-      client_signature: mgzSigData,
-      signed_at: new Date().toISOString()
+      providerName: providerName.value,
+      businessName: businessName.value,
+      providerEmail: providerEmail.value,
+      providerPhone: providerPhone.value,
+      startDate: startDate.value,
+      clientCount: clientCount.value,
+      ratePreview: ratePreview.value,
+      providerSigData,
+      mgzSigData,
+      ts: new Date().toISOString()
     };
-
-    const { error } = await ess.from("daily_entries").insert(payload);
-    if (error){
-      status.textContent = "Submit failed: " + error.message;
-      return;
-    }
-    status.textContent = "Contract stored in ESS ✅";
+    localStorage.setItem("mgz_contract_draft", JSON.stringify(payload));
+    status.textContent = "Draft saved on this device ✅";
   }
 
-  document.getElementById("submitContract").addEventListener("click", submitContract);
+  document.getElementById("saveLocal").addEventListener("click", saveLocal);
 
-  // print / pdf window
+  // load draft if exists
+  const existing = localStorage.getItem("mgz_contract_draft");
+  if (existing){
+    try {
+      const data = JSON.parse(existing);
+      providerName.value = data.providerName || "";
+      businessName.value = data.businessName || "";
+      providerEmail.value = data.providerEmail || "";
+      providerPhone.value = data.providerPhone || "";
+      if (data.startDate) startDate.value = data.startDate;
+      if (data.clientCount) clientCount.value = data.clientCount;
+      if (data.ratePreview) ratePreview.value = data.ratePreview;
+      // re-init canvases with saved signatures
+      providerSigData = data.providerSigData || null;
+      mgzSigData = data.mgzSigData || null;
+      providerCtx = initSig(providerSigCanvas, providerSigData);
+      mgzCtx = initSig(mgzSigCanvas, mgzSigData);
+      status.textContent = "Loaded draft from this device.";
+    } catch(e){
+      console.warn("could not parse draft", e);
+    }
+  }
+
+  // print window
   document.getElementById("printBtn").addEventListener("click", () => {
     const contractData = {
       provider: providerName.value || "",
@@ -404,7 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
       phone: providerPhone.value || "",
       start: startDate.value || "",
       tier: clientCount.value === "under10" ? "Under 10 clients – $3,500/mo" : "10+ clients – $5,000/mo",
-      body: document.getElementById("contractText").textContent.trim()
+      body: contractText.textContent.trim()
     };
     const win = window.open("", "_blank", "width=900,height=1100");
     win.document.write(`
@@ -420,6 +387,7 @@ document.addEventListener("DOMContentLoaded", () => {
           .sig-row{display:flex;gap:24px;margin-top:28px;}
           .sig-box{width:220px;height:60px;border-bottom:1px solid #000;margin-bottom:6px;}
           img.sig{width:220px;height:60px;object-fit:contain;border-bottom:1px solid #000;}
+          @media print {.page{margin:0;}}
         </style>
       </head>
       <body>
@@ -458,7 +426,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => win.print(), 350);
   });
 
-  // resize listener to keep signature crisp
+  // keep signatures crisp on resize
   window.addEventListener("resize", () => {
     providerCtx = initSig(providerSigCanvas, providerSigData);
     mgzCtx = initSig(mgzSigCanvas, mgzSigData);
