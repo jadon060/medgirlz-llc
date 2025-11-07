@@ -296,7 +296,7 @@
       display:inline-flex;
       align-items:center;
       justify-content:center;
-      margin:10px 0 6px 0;
+      margin:10px 0 14px 0;
       background:var(--accent-3);
       color:white;
       padding:7px 12px;
@@ -307,6 +307,31 @@
       transition:background .2s ease;
     }
     .auth-btn:hover{ background:#aa5a72; }
+
+    /* new: key contacts block */
+    .key-contacts {
+      background:rgba(248,243,241,0.7);
+      border:1px solid rgba(213,143,160,0.15);
+      border-radius:12px;
+      padding:10px 12px 8px 12px;
+      max-width:320px;
+    }
+    .key-contacts h4 {
+      margin:0 0 6px 0;
+      font-size:0.85rem;
+      letter-spacing:.04em;
+      text-transform:uppercase;
+      color:#956571;
+    }
+    .key-contacts p {
+      margin:2px 0 4px 0;
+      font-size:0.82rem;
+    }
+    .key-contacts span {
+      display:block;
+      font-size:0.76rem;
+      color:#b06d7d;
+    }
 
     .footer-right { text-align:center; }
     .footer-right h3 {
@@ -365,6 +390,7 @@
       .footer-left { text-align:center; }
       .footer-logo { margin:0 auto 6px auto; }
       .auth-btn { white-space:normal; max-width:100%; }
+      .key-contacts { margin:0 auto; }
     }
 
     @media (max-width: 600px) {
@@ -401,9 +427,7 @@
 
     <p>We stay connected with families when needed so they know how their loved one is doing, what changes have been made to care and what upcoming appointments or refills are needed. When staff need help coordinating with doctors’ offices, pharmacies, or specialists, MedGirlz steps in to make those calls and organize information so the team can focus on day-to-day supports.</p>
 
-    <!-- moved back to normal (left) -->
     <h3 style="color:#c57388; margin-top:28px;">Why Providers Choose MedGirlz</h3>
-    <p><strong></strong></p>
     <ul>
       <li>Monthly review and updating of medication records to keep documentation accurate and compliant.</li>
       <li>Routine medication checks in the individual’s home to ensure all meds are labeled, stored, and administered correctly.</li>
@@ -469,6 +493,12 @@
         <p><strong>Phone:</strong> (424) 207-6383</p>
         <p><strong>Email:</strong> TBD</p>
         <a href="https://bizfileonline.sos.ca.gov/search/business" target="_blank" class="auth-btn">Verify with CA Secretary of State</a>
+
+        <div class="key-contacts">
+          <h4>Key Contacts</h4>
+          <p><strong>Ms. Rianne</strong><br><span>RiAnne@medgirlzllc.com</span></p>
+          <p><strong>Ms. Edith</strong><br><span>Edith@medgirlzllc.com</span></p>
+        </div>
       </div>
       <div class="footer-right">
         <h3>Affiliations / Partners</h3>
