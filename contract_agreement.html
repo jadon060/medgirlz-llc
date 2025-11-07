@@ -1,281 +1,197 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>MedGirlz • Providers Portal</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="description" content="MedGirlz Providers Portal — internal notes and tools for providers." />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>MedGirlz LLC • Contract Agreement</title>
+  <link rel="icon" href="unnamed-Picsart-BackgroundRemover.jpg" type="image/jpeg" />
   <style>
-    :root{
-      --bg:#fdf8f6;
-      --card:#ffffff;
-      --ink:#3f2f31;
-      --muted:#856771;
-      --line:#f1dbe1;
-      --accent:#c57388;
-      --shadow:0 18px 60px rgba(197,115,136,.12), 0 2px 10px rgba(197,115,136,.04);
+    :root {
+      --bg: #fdf8f6;
+      --card: #ffffff;
+      --ink: #3f2f31;
+      --muted: #856771;
+      --accent: #c57388;
+      --accent-light: #f0cfd7;
+      --line: rgba(197,115,136,0.25);
+      --radius: 16px;
     }
-    *{box-sizing:border-box}
-    body{
+    * { box-sizing: border-box; }
+    body {
       margin:0;
-      background:var(--bg);
-      color:var(--ink);
-      font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.6;
     }
-
-    header{
+    .topbar {
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:14px 18px;
+      background:#fff;
+      border-bottom:1px solid rgba(0,0,0,0.03);
       position:sticky;
       top:0;
       z-index:10;
-      background:#fff;
-      border-bottom:1px solid var(--line);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      padding:12px 16px;
     }
-    .brand{
-      font-weight:800;
-      letter-spacing:.2px;
-      color:#c57388;
+    .topbar h1 {
+      font-size:1.05rem;
+      margin:0;
+      color:var(--ink);
     }
-    .brand small{
-      font-weight:600;
-      color:var(--muted);
-    }
-    .container{max-width:1100px;margin:18px auto;padding:0 16px}
-    .hero{
-      background:linear-gradient(135deg, rgba(197,115,136,.10), rgba(245,213,219,.12));
-      border:1px solid rgba(197,115,136,.25);
-      border-radius:20px;
-      padding:18px;
-      box-shadow:var(--shadow);
-    }
-    .hero h1{margin:0 0 4px;font-size:28px}
-    .hero .tagline{color:var(--muted);margin:0 0 12px}
-
-    .actions-inline{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px;}
-
-    .card{
-      background:#fff;
-      border:1px solid rgba(197,115,136,.12);
-      border-radius:18px;
-      padding:16px;
-      box-shadow:var(--shadow);
-      margin-top:16px;
-    }
-    .card h2{
-      margin:2px 0 12px;
-      font-size:18px;
-      display:flex;
-      align-items:center;
-      gap:8px;
-      color:#c57388;
-    }
-    .notes-controls{
-      display:flex;
-      gap:10px;
-      align-items:center;
-      flex-wrap:wrap;
-      margin:8px 0 10px;
-    }
-    .notes-controls input[type="text"]{
-      flex:1 1 260px;
-      padding:8px 10px;
-      border:1px solid var(--line);
-      border-radius:10px;
-    }
-    .btn{
-      appearance:none;
-      border:1px solid rgba(197,115,136,.35);
-      background:#c57388;
-      color:#fff;
-      border-radius:12px;
-      padding:8px 12px;
-      font-weight:700;
-      box-shadow:0 6px 16px rgba(197,115,136,.25);
-      cursor:pointer;
+    .back-link {
+      color:var(--accent);
       text-decoration:none;
-      display:inline-flex;
+      font-weight:600;
+      font-size:0.9rem;
+    }
+    .shell {
+      max-width:950px;
+      margin:26px auto 46px auto;
+      padding:0 16px;
+    }
+    .card {
+      background:rgba(255,255,255,0.9);
+      border:1px solid rgba(197,115,136,0.08);
+      border-radius:var(--radius);
+      box-shadow:0 6px 20px rgba(0,0,0,0.03);
+      padding:26px 26px 30px 26px;
+    }
+    h2.title {
+      margin-top:0;
+      font-size:1.7rem;
+      display:flex;
       align-items:center;
-      gap:6px;
-      white-space:nowrap;
-    }
-    .btn.ghost{background:#fff;color:#3f2f31;}
-    .btn.warn{background:#b91c1c;border-color:#7f1d1d;color:#fff;}
-    textarea#noteText{
-      width:100%;
-      min-height:120px;
-      padding:12px;
-      border:1px solid var(--line);
-      border-radius:12px;
-      resize:vertical;
-    }
-    .note-row{
-      display:grid;
-      grid-template-columns:1fr auto;
       gap:10px;
-      align-items:start;
-      padding:10px;
-      border:1px solid var(--line);
-      border-radius:12px;
-      background:#faf6f7;
+      color:var(--accent);
     }
-    .note-meta{font-size:12px;color:var(--muted);margin-bottom:6px}
-    .note-actions{display:flex;gap:6px}
-    .muted{color:var(--muted)}
-    footer{
+    h2.title::before {
+      content:"";
+      width:14px;
+      height:38px;
+      background:linear-gradient(180deg, #c57388 0%, #f0cfd7 100%);
+      border-radius:999px;
+      display:inline-block;
+    }
+    .sub {
+      margin-top:-6px;
       color:var(--muted);
-      font-size:13px;
-      text-align:center;
-      padding:24px 0 36px;
     }
-
-    @media (max-width:600px){ header{flex-wrap:wrap;} }
+    .section-head {
+      margin-top:22px;
+      font-weight:600;
+      color:#4a3236;
+      font-size:1.02rem;
+    }
+    .block {
+      background:#fff;
+      border:1px solid rgba(197,115,136,0.05);
+      border-radius:12px;
+      padding:14px 16px 8px 16px;
+      margin-top:10px;
+    }
+    ul {
+      padding-left:16px;
+      margin-top:4px;
+    }
+    .sig-row {
+      display:flex;
+      gap:20px;
+      flex-wrap:wrap;
+      margin-top:26px;
+    }
+    .sig-box {
+      flex:1 1 240px;
+      border:1px dashed rgba(197,115,136,0.55);
+      border-radius:12px;
+      padding:12px 12px 38px 12px;
+      background:rgba(255,255,255,0.6);
+    }
+    .sig-label {
+      font-size:0.77rem;
+      color:var(--muted);
+      margin-bottom:4px;
+    }
+    .footer-note {
+      margin-top:26px;
+      font-size:0.8rem;
+      color:var(--muted);
+      text-align:center;
+    }
+    @media (max-width:600px){
+      .card { padding:20px 16px 24px 16px; }
+      .sig-row { flex-direction:column; }
+    }
   </style>
 </head>
 <body>
-  <header class="container">
-    <div class="brand">MedGirlz • <small>Providers Portal</small></div>
-    <a class="btn ghost" href="https://jadon060.github.io/medgirlz-llc/">Return home</a>
-  </header>
 
-  <main class="container">
-    <section class="hero">
-      <h1>Welcome to MedGirlz LLC</h1>
-      <p class="tagline">Here is the provider contract for reference.</p>
+  <div class="topbar">
+    <h1>MedGirlz LLC</h1>
+    <!-- go back to main site -->
+    <a class="back-link" href="index.html">← Back to Home</a>
+  </div>
 
-      <!-- changed to CONTRACT button -->
-      <div class="actions-inline">
-        <a class="btn" href="https://jadon060.github.io/medgirlz-llc/contract_agreement.html" target="_blank" rel="noopener">
-          📄 Provider Contract
-        </a>
+  <div class="shell">
+    <div class="card">
+      <h2 class="title">Contract / Service Agreement</h2>
+      <p class="sub">Between MedGirlz LLC (“Agency”) and the undersigned client / program (“Client”). Update this text to match your actual agreement language.</p>
+
+      <p class="section-head">1. Parties</p>
+      <div class="block">
+        <p><strong>Agency:</strong> MedGirlz LLC</p>
+        <p><strong>Client / Program:</strong> ______________________________</p>
+        <p><strong>Date:</strong> ____ / ____ / ______</p>
       </div>
 
-      <div class="card">
-        <h2>🗒️ Provider Notes</h2>
-        <p class="muted" style="margin-top:-6px">Saved locally in this browser only.</p>
-
-        <div class="notes-controls">
-          <input id="search" type="text" placeholder="Search notes…" />
-          <button class="btn ghost" id="exportJson">Export</button>
-          <label class="btn ghost" for="importFile" style="cursor:pointer">Import</label>
-          <input id="importFile" type="file" accept=".json" style="display:none" />
-          <button class="btn warn" id="clearAll">Clear All</button>
-        </div>
-
-        <textarea id="noteText" placeholder="Example: 11/07 — submitted progress note to coordinator."></textarea>
-        <div style="display:flex;gap:10px;margin-top:10px">
-          <button class="btn" id="saveNote">Save (Ctrl+Enter)</button>
-          <span class="muted" id="saveStatus" aria-live="polite"></span>
-        </div>
-
-        <div style="margin-top:16px" id="notesList"></div>
+      <p class="section-head">2. Scope of Services</p>
+      <div class="block">
+        <p>MedGirlz LLC agrees to provide support services which may include, but are not limited to:</p>
+        <ul>
+          <li>Medication training and monthly medication record review;</li>
+          <li>CPR / First Aid instruction as needed;</li>
+          <li>Crisis Prevention (CPI) training and support;</li>
+          <li>Care coordination with Regional Center, DDS, physicians, or pharmacies;</li>
+          <li>Nutrition / dietary support when ordered.</li>
+        </ul>
+        <p>Specific services for this client/program:</p>
+        <p style="min-height:40px;border:1px solid #f1dbe1;border-radius:9px;padding:6px 8px;background:#fff;">
+          ______________________________________________________________________
+        </p>
       </div>
-    </section>
 
-    <footer>© <span id="y"></span> MedGirlz LLC • Providers Portal</footer>
-  </main>
+      <p class="section-head">3. Payment & Authorization</p>
+      <div class="block">
+        <p>Client agrees to authorize payment for services rendered by MedGirlz LLC according to the rate schedule or purchase authorization on file with the Regional Center / paying entity.</p>
+        <p>All services must be authorized in advance unless otherwise approved.</p>
+      </div>
 
-  <script>
-    document.getElementById('y').textContent = new Date().getFullYear();
+      <p class="section-head">4. Confidentiality</p>
+      <div class="block">
+        <p>MedGirlz LLC will follow applicable privacy standards (including HIPAA, when applicable) to protect client information. Client/Program agrees to share only information necessary for service delivery.</p>
+      </div>
 
-    const LS_KEY = "MGZ_Provider_PrivateNotes_v1";
-    const $ = sel => document.querySelector(sel);
-    const notesList = $("#notesList");
-    const searchBox = $("#search");
-    const statusEl = $("#saveStatus");
+      <p class="section-head">5. Term & Termination</p>
+      <div class="block">
+        <p>This agreement begins on the date signed and remains in effect until services are formally ended by either party with reasonable notice, or as required by the funding source.</p>
+      </div>
 
-    function loadNotes(){ try { return JSON.parse(localStorage.getItem(LS_KEY)) || []; } catch { return []; } }
-    function persist(notes){ localStorage.setItem(LS_KEY, JSON.stringify(notes)); }
-    function nowStamp(){
-      const d = new Date();
-      return d.toLocaleString(undefined, {year:'2-digit', month:'2-digit', day:'2-digit', hour:'2-digit', minute:'2-digit'});
-    }
-    function saveNote(){
-      const txt = $("#noteText").value.trim();
-      if(!txt) return;
-      const notes = loadNotes();
-      const body = `${nowStamp()} — ${txt}`;
-      notes.unshift({ id: crypto.randomUUID(), ts: new Date().toISOString(), body });
-      persist(notes);
-      $("#noteText").value = "";
-      flash("Saved");
-      render();
-    }
-    function deleteNote(id){
-      const notes = loadNotes().filter(n => n.id !== id);
-      persist(notes);
-      render();
-    }
-    async function copyNote(text){
-      try{ await navigator.clipboard.writeText(text); flash("Copied"); }catch{ flash("Copy failed"); }
-    }
-    function exportJson(){
-      const blob = new Blob([JSON.stringify(loadNotes(), null, 2)], {type:"application/json"});
-      const a = document.createElement("a");
-      a.href = URL.createObjectURL(blob);
-      a.download = `MGZ_ProviderNotes_${new Date().toISOString().slice(0,10)}.json`;
-      a.click();
-      URL.revokeObjectURL(a.href);
-    }
-    function importJson(file){
-      const reader = new FileReader();
-      reader.onload = () => {
-        try{
-          const imported = JSON.parse(reader.result);
-          if(!Array.isArray(imported)) throw new Error("Invalid file");
-          const map = new Map();
-          [...imported, ...loadNotes()].forEach(n =>
-            map.set(n.id || crypto.randomUUID(), {
-              id:n.id || crypto.randomUUID(),
-              ts:n.ts || new Date().toISOString(),
-              body:String(n.body||"")
-            })
-          );
-          const merged = [...map.values()].sort((a,b)=> (b.ts||"").localeCompare(a.ts||""));
-          persist(merged);
-          render();
-          flash("Imported");
-        }catch(e){ flash("Import failed"); }
-      };
-      reader.readAsText(file);
-    }
-    function clearAll(){
-      if(confirm("Delete ALL notes on this device?")){ persist([]); render(); }
-    }
-    function flash(msg){ statusEl.textContent = msg; setTimeout(()=> statusEl.textContent = "", 1200); }
-    function render(){
-      const q = (searchBox.value || "").toLowerCase();
-      const notes = loadNotes().filter(n => n.body.toLowerCase().includes(q));
-      if(notes.length === 0){ notesList.innerHTML = `<p class="muted">No notes yet.</p>`; return; }
-      notesList.innerHTML = notes.map(n => {
-        const when = new Date(n.ts).toLocaleString();
-        return `
-          <div class="note-row">
-            <div>
-              <div class="note-meta">${when}</div>
-              <div style="white-space:pre-wrap">${escapeHtml(n.body)}</div>
-            </div>
-            <div class="note-actions">
-              <button class="btn ghost" onclick='(${copyNote}).call(null, ${JSON.stringify(n.body)})'>Copy</button>
-              <button class="btn warn" onclick='(${deleteNote}).call(null, "${n.id}")'>Delete</button>
-            </div>
-          </div>
-        `;
-      }).join("");
-    }
-    function escapeHtml(s){ return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
+      <p class="section-head">6. Signatures</p>
+      <div class="sig-row">
+        <div class="sig-box">
+          <div class="sig-label">Client / Program Representative</div>
+          <p style="margin-top:40px;border-top:1px solid rgba(197,115,136,0.3);padding-top:4px;">Signature / Printed Name</p>
+        </div>
+        <div class="sig-box">
+          <div class="sig-label">MedGirlz LLC</div>
+          <p style="margin-top:40px;border-top:1px solid rgba(197,115,136,0.3);padding-top:4px;">Authorized Signature</p>
+        </div>
+      </div>
 
-    $("#saveNote").addEventListener("click", saveNote);
-    $("#noteText").addEventListener("keydown", e=>{ if(e.ctrlKey && e.key==='Enter'){ saveNote(); } });
-    $("#exportJson").addEventListener("click", exportJson);
-    $("#importFile").addEventListener("change", e => e.target.files[0] && importJson(e.target.files[0]));
-    $("#clearAll").addEventListener("click", clearAll);
-    searchBox.addEventListener("input", render);
+      <p class="footer-note">This is a sample agreement layout for MedGirlz LLC. Replace the placeholder language with your final legal/service text.</p>
+    </div>
+  </div>
 
-    render();
-  </script>
 </body>
 </html>
