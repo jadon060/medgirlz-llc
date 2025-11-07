@@ -62,7 +62,7 @@
     </header>
 
     <div class="card">
-      <p>Enter credentials to access your portal.</p>
+      <p>Enter password to access your portal.</p>
       <input id="pw" type="password" placeholder="Password" autocomplete="current-password">
       <button id="go">Login</button>
       <div id="err" class="err"></div>
@@ -71,8 +71,9 @@
   </div>
 
   <script>
-    // single MGZ admin password
-    const ADMIN_PW  = "194810";
+    // admin + providers
+    const ADMIN_PW    = "194810";
+    const PROVIDER_PW = "2026";
 
     function route(){
       const val = (document.getElementById("pw").value || "").trim();
@@ -84,10 +85,14 @@
       }
 
       if(val === ADMIN_PW){
-        // set the SAME key the admin page checks
         try { localStorage.setItem("MGZ_Admin_Login","true"); } catch(e){}
-        // go to the portal in the same folder
         location.href = "Admin_Portal.html";
+        return;
+      }
+
+      if(val === PROVIDER_PW){
+        try { localStorage.setItem("MGZ_Provider_Login","true"); } catch(e){}
+        location.href = "Providers_Portal.html";
         return;
       }
 
