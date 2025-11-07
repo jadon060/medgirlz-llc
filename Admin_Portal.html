@@ -33,6 +33,8 @@
     .hero h1{margin:0 0 4px;font-size:28px}
     .hero .tagline{color:var(--muted);margin:0 0 12px}
 
+    .actions-inline{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:6px;}
+
     .card{
       background:#fff;border:1px solid rgba(197,115,136,.12);border-radius:18px;
       padding:16px;box-shadow:var(--shadow);margin-top:16px;
@@ -42,7 +44,11 @@
     .notes-controls input[type="text"]{flex:1 1 260px;padding:8px 10px;border:1px solid var(--line);border-radius:10px}
     .btn{
       appearance:none;border:1px solid rgba(197,115,136,.35);background:#c57388;color:#fff;border-radius:12px;
-      padding:8px 12px;font-weight:700;box-shadow:0 6px 16px rgba(197,115,136,.25);cursor:pointer
+      padding:8px 12px;font-weight:700;box-shadow:0 6px 16px rgba(197,115,136,.25);cursor:pointer;
+      text-decoration:none; /* for <a> */
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
     }
     .btn.ghost{background:#fff;color:#3f2f31}
     .btn.warn{background:#b91c1c;border-color:#7f1d1d}
@@ -68,6 +74,13 @@
     <section class="hero">
       <h1>Welcome, Rianne</h1>
       <p class="tagline">Keep your MedGirlz notes in one place.</p>
+
+      <!-- NEW: button to contract page -->
+      <div class="actions-inline">
+        <a class="btn" href="https://jadon060.github.io/medgirlz-llc/contract_agreement.html" target="_blank" rel="noopener">
+          📄 Provider Contract
+        </a>
+      </div>
 
       <div class="card">
         <h2>🗒️ My Notes</h2>
