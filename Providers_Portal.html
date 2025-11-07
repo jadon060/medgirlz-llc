@@ -133,97 +133,50 @@
     }
 
     @media (max-width:600px){ header{flex-wrap:wrap;} }
-
-    #passwordScreen{
-      position:fixed;
-      inset:0;
-      background:var(--bg);
-      display:flex;
-      flex-direction:column;
-      align-items:center;
-      justify-content:center;
-      font-family:system-ui;
-    }
-    #passwordScreen input{
-      padding:8px 10px;
-      border:1px solid var(--line);
-      border-radius:8px;
-      margin-top:10px;
-    }
-    #passwordScreen button{
-      margin-top:10px;
-      padding:8px 12px;
-      border:none;
-      border-radius:8px;
-      background:#c57388;
-      color:#fff;
-      font-weight:700;
-      cursor:pointer;
-    }
   </style>
 </head>
 <body>
-  <div id="passwordScreen">
-    <h2>🔒 Enter Provider Access Code</h2>
-    <input id="pw" type="password" placeholder="Access code" />
-    <button onclick="checkPass()">Enter</button>
-    <p id="msg" class="muted"></p>
-  </div>
+  <header class="container">
+    <div class="brand">MedGirlz • <small>Providers Portal</small></div>
+    <a class="btn ghost" href="https://jadon060.github.io/medgirlz-llc/">Return home</a>
+  </header>
 
-  <div id="portal" style="display:none">
-    <header class="container">
-      <div class="brand">MedGirlz • <small>Providers Portal</small></div>
-      <a class="btn ghost" href="https://jadon060.github.io/medgirlz-llc/">Return home</a>
-    </header>
+  <main class="container">
+    <section class="hero">
+      <h1>Welcome to MedGirlz LLC</h1>
+      <p class="tagline">Here is the admin portal for reference.</p>
 
-    <main class="container">
-      <section class="hero">
-        <h1>Welcome to MedGirlz LLC</h1>
-        <p class="tagline">Here is the admin portal for reference.</p>
+      <div class="actions-inline">
+        <a class="btn" href="https://jadon060.github.io/medgirlz-llc/Admin_Portal.html" target="_blank" rel="noopener">🔗 Admin Portal</a>
+      </div>
 
-        <div class="actions-inline">
-          <a class="btn" href="https://jadon060.github.io/medgirlz-llc/Admin_Portal.html" target="_blank" rel="noopener">🔗 Admin Portal</a>
+      <div class="card">
+        <h2>🗒️ Provider Notes</h2>
+        <p class="muted" style="margin-top:-6px">Saved locally in this browser only.</p>
+
+        <div class="notes-controls">
+          <input id="search" type="text" placeholder="Search notes…" />
+          <button class="btn ghost" id="exportJson">Export</button>
+          <label class="btn ghost" for="importFile" style="cursor:pointer">Import</label>
+          <input id="importFile" type="file" accept=".json" style="display:none" />
+          <button class="btn warn" id="clearAll">Clear All</button>
         </div>
 
-        <div class="card">
-          <h2>🗒️ Provider Notes</h2>
-          <p class="muted" style="margin-top:-6px">Saved locally in this browser only.</p>
-
-          <div class="notes-controls">
-            <input id="search" type="text" placeholder="Search notes…" />
-            <button class="btn ghost" id="exportJson">Export</button>
-            <label class="btn ghost" for="importFile" style="cursor:pointer">Import</label>
-            <input id="importFile" type="file" accept=".json" style="display:none" />
-            <button class="btn warn" id="clearAll">Clear All</button>
-          </div>
-
-          <textarea id="noteText" placeholder="Example: 11/07 — submitted progress note to coordinator."></textarea>
-          <div style="display:flex;gap:10px;margin-top:10px">
-            <button class="btn" id="saveNote">Save (Ctrl+Enter)</button>
-            <span class="muted" id="saveStatus" aria-live="polite"></span>
-          </div>
-
-          <div style="margin-top:16px" id="notesList"></div>
+        <textarea id="noteText" placeholder="Example: 11/07 — submitted progress note to coordinator."></textarea>
+        <div style="display:flex;gap:10px;margin-top:10px">
+          <button class="btn" id="saveNote">Save (Ctrl+Enter)</button>
+          <span class="muted" id="saveStatus" aria-live="polite"></span>
         </div>
-      </section>
 
-      <footer>© <span id="y"></span> MedGirlz LLC • Providers Portal</footer>
-    </main>
-  </div>
+        <div style="margin-top:16px" id="notesList"></div>
+      </div>
+    </section>
+
+    <footer>© <span id="y"></span> MedGirlz LLC • Providers Portal</footer>
+  </main>
 
   <script>
     document.getElementById('y').textContent = new Date().getFullYear();
-
-    function checkPass(){
-      const val = document.getElementById('pw').value.trim();
-      const msg = document.getElementById('msg');
-      if(val === "2026"){
-        document.getElementById('passwordScreen').style.display = "none";
-        document.getElementById('portal').style.display = "block";
-      }else{
-        msg.textContent = "❌ Incorrect code";
-      }
-    }
 
     const LS_KEY = "MGZ_Provider_PrivateNotes_v1";
     const $ = sel => document.querySelector(sel);
